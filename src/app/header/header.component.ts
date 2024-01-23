@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { MenuLink, getMenuLinkName } from '../app.model';
 
 @Component({
   selector: 'app-header',
@@ -12,22 +13,29 @@ import { RouterModule } from '@angular/router';
 export class HeaderComponent implements OnInit {
   readonly menuItems = Object.freeze([
     Object.freeze({
-      routerLink: '/',
-      routerLinkName: 'Courses',
+      routerLink: MenuLink.courses,
+      routerLinkName: getMenuLinkName(),
     }),
     Object.freeze({
-      routerLink: '/wishlist',
-      routerLinkName: 'Wishlist',
+      routerLink: MenuLink.wishlist,
+      routerLinkName: getMenuLinkName(MenuLink.wishlist),
     }),
     Object.freeze({
-      routerLink: '/cart',
-      routerLinkName: 'Cart',
+      routerLink: MenuLink.cart,
+      routerLinkName: getMenuLinkName(MenuLink.cart),
     }),
     Object.freeze({
-      routerLink: '/profile',
-      routerLinkName: 'Profile',
+      routerLink: MenuLink.profile,
+      routerLinkName: getMenuLinkName(MenuLink.profile),
     }),
   ]);
+
+  readonly routerLinkActiveOptions = Object.freeze({
+    matrixParams: 'exact',
+    queryParams: 'exact',
+    paths: 'exact',
+    fragment: 'exact',
+  });
 
   ngOnInit(): void {}
 }

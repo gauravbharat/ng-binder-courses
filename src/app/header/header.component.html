@@ -20,10 +20,7 @@
         class="cursor-pointer hover:text-primaryGreen duration-150"
         [routerLink]="[menuItem.routerLink]"
         routerLinkActive="binder-link-active text-primaryGreen"
-        [routerLinkActiveOptions]="{matrixParams: 'exact',
-        queryParams: 'exact',
-        paths: 'exact',
-        fragment: 'exact',}"
+        [routerLinkActiveOptions]="routerLinkActiveOptions"
         ><i class="block sm:hidden text-xl fi fi-rr-e-learning"></i>
         <span class="hidden sm:block">{{ menuItem.routerLinkName }}</span></a
       >
