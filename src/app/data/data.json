@@ -1,5 +1,6 @@
 [
   {
+    "courseId": "a47c887c-8b4d-497d-9970-455bc6a06fc2",
     "courseName": "Advanced Machine Learning",
     "author": "Alex Johnson",
     "actualPrice": "₹1199",
@@ -7,6 +8,7 @@
     "tags": ["Machine Learning", "Python"]
   },
   {
+    "courseId": "abc6e103-d7aa-4d7a-b6ee-17a13413fb15",
     "courseName": "JavaScript Frameworks Masterclass",
     "author": "Emily White",
     "actualPrice": "₹899",
@@ -14,6 +16,7 @@
     "tags": ["JavaScript", "React", "Vue"]
   },
   {
+    "courseId": "c5be0274-cbba-4665-a807-a74f7ded0908",
     "courseName": "Full Stack Development with Django",
     "author": "Chris Turner",
     "actualPrice": "₹1499",
@@ -21,6 +24,7 @@
     "tags": ["Python", "Django", "JavaScript"]
   },
   {
+    "courseId": "126bba0f-459e-49e7-9c26-cdd3d0588bf2",
     "courseName": "Cybersecurity Essentials",
     "author": "Sophia Davis",
     "actualPrice": "₹1299",
@@ -28,6 +32,7 @@
     "tags": ["Cybersecurity", "Network Security"]
   },
   {
+    "courseId": "955be9de-ad4e-4dc2-8aaa-11be8b113bd9",
     "courseName": "Mobile App UX Design",
     "author": "Daniel Smith",
     "actualPrice": "₹999",
@@ -35,6 +40,7 @@
     "tags": ["UX Design", "Mobile App Development"]
   },
   {
+    "courseId": "9384219c-3e5f-4c94-b5ac-01873a09ab25",
     "courseName": "Node.js for Beginners",
     "author": "Ava Williams",
     "actualPrice": "₹699",
@@ -42,6 +48,7 @@
     "tags": ["Node.js", "JavaScript"]
   },
   {
+    "courseId": "2db7a831-188e-47bf-ad69-4bc532b592ac",
     "courseName": "Artificial Intelligence in Business",
     "author": "Noah Turner",
     "actualPrice": "₹1599",
@@ -49,6 +56,7 @@
     "tags": ["Artificial Intelligence", "Business"]
   },
   {
+    "courseId": "0f12bd31-944d-40fb-a6ff-c71fbcf3bd53",
     "courseName": "Swift Programming for iOS",
     "author": "Emma Johnson",
     "actualPrice": "₹1099",
@@ -56,6 +64,7 @@
     "tags": ["iOS", "Swift"]
   },
   {
+    "courseId": "0c6ee929-9dd5-4066-b431-26177f163663",
     "courseName": "Responsive Web Design Principles",
     "author": "Liam White",
     "actualPrice": "₹799",
@@ -63,6 +72,7 @@
     "tags": ["Web Design", "HTML", "CSS"]
   },
   {
+    "courseId": "595b4fb0-b27f-4eeb-9838-13f2439e19f6",
     "courseName": "Java Fundamentals",
     "author": "Olivia Turner",
     "actualPrice": "₹899",
@@ -70,6 +80,7 @@
     "tags": ["Java"]
   },
   {
+    "courseId": "45ef44f8-74c8-4a47-9bff-c3b52d001145",
     "courseName": "Game Development with Unity",
     "author": "Lucas Davis",
     "actualPrice": "₹1399",
@@ -77,6 +88,7 @@
     "tags": ["Game Development", "Unity"]
   },
   {
+    "courseId": "17b7f242-74c2-4ddc-9583-f538426878a2",
     "courseName": "Python for Data Science",
     "author": "Aria Smith",
     "actualPrice": "₹1199",
@@ -84,6 +96,7 @@
     "tags": ["Python", "Data Science"]
   },
   {
+    "courseId": "abb62710-1769-4efd-bb24-e52cdd0bf389",
     "courseName": "Frontend Development Bootcamp",
     "author": "Mia Johnson",
     "actualPrice": "₹999",
@@ -91,6 +104,7 @@
     "tags": ["HTML", "CSS", "JavaScript"]
   },
   {
+    "courseId": "4f5cda6c-66d2-43ba-9350-072e85b82bf0",
     "courseName": "C# Programming Mastery",
     "author": "Jackson White",
     "actualPrice": "₹1099",
@@ -98,6 +112,7 @@
     "tags": ["C#"]
   },
   {
+    "courseId": "1e083af6-1e0c-4544-adf2-5057c1aeaee0",
     "courseName": "Angular Framework Deep Dive",
     "author": "Ava Turner",
     "actualPrice": "₹1299",
@@ -105,6 +120,7 @@
     "tags": ["Angular"]
   },
   {
+    "courseId": "08789b8f-b7e6-4323-b619-1824f5784495",
     "courseName": "Data Visualization with D3.js",
     "author": "Ethan Davis",
     "actualPrice": "₹899",
@@ -112,6 +128,7 @@
     "tags": ["Data Visualization", "D3.js"]
   },
   {
+    "courseId": "d6c06ba6-f06a-4a6d-93b6-9319629e4874",
     "courseName": "Android App Development Basics",
     "author": "Isabella Smith",
     "actualPrice": "₹799",
@@ -119,6 +136,7 @@
     "tags": ["Android", "Mobile App Development"]
   },
   {
+    "courseId": "b2bfab59-b9d3-4c82-ad7c-6517a5ff277c",
     "courseName": "Vue.js for Frontend Development",
     "author": "Logan Johnson",
     "actualPrice": "₹999",
@@ -126,6 +144,7 @@
     "tags": ["Vue.js", "JavaScript"]
   },
   {
+    "courseId": "703b456c-0b2c-41a8-817c-0adb7aef4e57",
     "courseName": "Cloud Computing Fundamentals",
     "author": "Sophie Turner",
     "actualPrice": "₹1199",

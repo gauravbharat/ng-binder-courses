@@ -22,6 +22,7 @@ export const getMenuLinkName = (menuLink = MenuLink.courses) => {
 };
 
 export interface Course {
+  courseId: string;
   actualPrice: number;
   author: string;
   courseName: string;
