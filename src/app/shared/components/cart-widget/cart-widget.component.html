@@ -1,0 +1,15 @@
+<div
+  id="cart"
+  class="w-[90px] sm:w-[120px] md:w-[140px] lg:w-[160px] flex flex-col justify-start items-center bg-green-50 border-l-[1px] border-l-green-800 border-opacity-60"
+>
+  <div
+    class="w-full p-2 flex flex-col items-center h-[88px] sm:h-[96px] md:h-[144px] border-b-[1px] border-b-green-800 border-opacity-30"
+  >
+    GO TO CHECKOUT
+  </div>
+  <div class="overflow-y-scroll w-full">
+    @for (item of [].constructor(10); track $index) {
+    <div class="w-full h-36 p-2">courses</div>
+    }
+  </div>
+</div>

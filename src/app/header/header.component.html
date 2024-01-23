@@ -1,0 +1,33 @@
+<header
+  class="w-full mx-auto p-4 md:p-8 flex justify-between items-center gap-2"
+>
+  <a
+    class="cursor-pointer"
+    [routerLink]="['/']"
+    routerLinkActive="router-link-active"
+  >
+    <img
+      class="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 aspect-square hover:scale-125 duration-300"
+      src="assets/images/logo.png"
+      alt="logo"
+    />
+  </a>
+
+  <div class="relative flex items-center gap-2">
+    <div class="flex items-center gap-2 gap-x-6 sm:gap-x-4">
+      @for (menuItem of menuItems; track menuItem.routerLinkName) {
+      <a
+        class="cursor-pointer hover:text-primaryGreen duration-150"
+        [routerLink]="[menuItem.routerLink]"
+        routerLinkActive="binder-link-active text-primaryGreen"
+        [routerLinkActiveOptions]="{matrixParams: 'exact',
+        queryParams: 'exact',
+        paths: 'exact',
+        fragment: 'exact',}"
+        ><i class="block sm:hidden text-xl fi fi-rr-e-learning"></i>
+        <span class="hidden sm:block">{{ menuItem.routerLinkName }}</span></a
+      >
+      }
+    </div>
+  </div>
+</header>
