@@ -21,7 +21,9 @@
         [routerLink]="[menuItem.routerLink]"
         routerLinkActive="binder-link-active text-primaryGreen"
         [routerLinkActiveOptions]="routerLinkActiveOptions"
-        ><i class="block sm:hidden text-xl fi fi-rr-e-learning"></i>
+        ><i
+          class="block sm:hidden text-xl {{ menuItem.routerLinkIconClass }}"
+        ></i>
         <span class="hidden sm:block">{{ menuItem.routerLinkName }}</span></a
       >
       }

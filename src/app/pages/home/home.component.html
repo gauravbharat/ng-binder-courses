@@ -1,0 +1,5 @@
+<section id="home" class="h-[1000px]">
+  @for (course of (formattedCourses$ | async); track $index) {
+  <div>{{ course.courseName }}</div>
+  }
+</section>

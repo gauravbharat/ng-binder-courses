@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MenuLink, getMenuLinkName } from '../app.model';
+import { MenuLink, getMenuLinkName } from '../../../app.model';
 
 @Component({
   selector: 'app-header',
@@ -15,18 +15,22 @@ export class HeaderComponent {
     Object.freeze({
       routerLink: MenuLink.courses,
       routerLinkName: getMenuLinkName(),
+      routerLinkIconClass: 'fi fi-rr-e-learning',
     }),
     Object.freeze({
       routerLink: MenuLink.wishlist,
       routerLinkName: getMenuLinkName(MenuLink.wishlist),
+      routerLinkIconClass: 'fi fi-rr-heart',
     }),
     Object.freeze({
       routerLink: MenuLink.cart,
       routerLinkName: getMenuLinkName(MenuLink.cart),
+      routerLinkIconClass: 'fi fi-rr-shopping-cart',
     }),
     Object.freeze({
       routerLink: MenuLink.profile,
       routerLinkName: getMenuLinkName(MenuLink.profile),
+      routerLinkIconClass: 'fi fi-rr-user',
     }),
   ]);
 

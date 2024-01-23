@@ -14,9 +14,9 @@ import {
   RouterOutlet,
 } from '@angular/router';
 import { Subscription, filter } from 'rxjs';
-import { FooterComponent } from './footer/footer.component';
-import { HeaderComponent } from './header/header.component';
-import { CartWidgetComponent } from './shared/components/cart-widget/cart-widget.component';
+import { FooterComponent } from './shared/components/footer/footer.component';
+import { HeaderComponent } from './shared/components/header/header.component';
+import { MenuLink } from './app.model';
 
 @Component({
   selector: 'app-root',
@@ -27,7 +27,6 @@ import { CartWidgetComponent } from './shared/components/cart-widget/cart-widget
     RouterModule,
     FooterComponent,
     HeaderComponent,
-    CartWidgetComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
@@ -42,7 +41,7 @@ export class AppComponent implements OnInit, OnDestroy {
   showCartWidget = computed(() => {
     const currentUrl = this.#currentUrl();
 
-    return currentUrl === '/' || currentUrl === '/courses';
+    return currentUrl === MenuLink.courses;
   });
 
   coursesAdded = true;
