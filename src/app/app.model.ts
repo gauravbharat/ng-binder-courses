@@ -20,3 +20,14 @@ export const getMenuLinkName = (menuLink = MenuLink.courses) => {
       return 'Courses';
   }
 };
+
+export interface Course {
+  actualPrice: number;
+  author: string;
+  courseName: string;
+  discountPercentage: number;
+  tags: string[];
+  discountedPrice: number;
+}
+
+export const kCurrencySymbol = '₹';
