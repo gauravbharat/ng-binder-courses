@@ -26,9 +26,14 @@ export interface Course {
   actualPrice: number;
   author: string;
   courseName: string;
+  courseImageUrl: string;
   discountPercentage: number;
   tags: string[];
   discountedPrice: number;
 }
 
 export const kCurrencySymbol = '₹';
+
+export enum LocalStoreKeys {
+  APP_STATE = 'appState',
+}

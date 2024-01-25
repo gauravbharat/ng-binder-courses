@@ -14,7 +14,8 @@ export const loadCourses$ = createEffect(
           data.map((v) => {
             const actualPrice = +v.actualPrice.replace(kCurrencySymbol, '');
             const discountPercentage = +v.discountPercentage.replace('%', '');
-            const discountedPrice = (discountPercentage / 100) * actualPrice;
+            const discountAmount = (discountPercentage / 100) * actualPrice;
+            const discountedPrice = Math.round(actualPrice - discountAmount);
 
             return {
               ...v,

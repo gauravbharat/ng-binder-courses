@@ -1,15 +1,15 @@
 <main class="relative min-w-64 h-screen flex w-screen">
-  <div class="flex flex-col justify-start gap-y-4 w-full overflow-y-scroll">
+  <div class="flex flex-col justify-start w-full overflow-y-scroll">
     <app-header></app-header>
 
-    <div class="flex-1 w-full">
+    <div class="flex-1 w-full mb-4">
       <router-outlet></router-outlet>
     </div>
 
     <app-footer></app-footer>
   </div>
 
-  @if (showCartWidget() && coursesAdded) {
+  @if (showCartWidget() && (cartItemCount$ | async)) {
   <ng-container [ngTemplateOutlet]="cartWidget"></ng-container>
   }
 </main>
@@ -20,13 +20,28 @@
     class="w-[90px] sm:w-[120px] md:w-[140px] lg:w-[160px] flex flex-col justify-start items-center bg-green-50 bg-opacity-20 border-l-[1px] border-l-green-800 border-opacity-60"
   >
     <div
-      class="w-full p-2 flex flex-col items-center h-[88px] sm:h-[96px] md:h-[144px] border-b-[1px] border-b-green-800 border-opacity-30"
+      class="w-full p-2 flex flex-col justify-center items-center h-[88px] sm:h-[96px] md:h-[144px] border-b-[1px] border-b-green-800 border-opacity-30"
     >
-      GO TO CHECKOUT
+      <div class="text-sm">Total</div>
+      <div class="font-bold md:text-xl">
+        {{ currencySymbol }}{{ cartItemTotalValue$ | async }}
+      </div>
+      <app-button
+        ><span
+          class="text-xs md:text-sm font-semibold md:font-medium"
+          buttonText
+          >Checkout</span
+        ></app-button
+      >
     </div>
     <div class="overflow-y-scroll w-full">
-      @for (item of [].constructor(10); track $index) {
-      <div class="w-full h-36 p-2">courses</div>
+      @for (cartItem of (cartItems$ | async); track $index) {
+      <!-- <div class="w-full h-36 p-2"> -->
+      <app-course-card
+        [course]="cartItem"
+        displayAt="cartWidget"
+      ></app-course-card>
+      <!-- </div> -->
       }
     </div>
   </div>

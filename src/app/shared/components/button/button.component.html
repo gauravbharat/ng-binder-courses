@@ -1,0 +1,16 @@
+@if (iconButton) {
+<button
+  type="button"
+  class="p-[6px] bg-green-200 hover:bg-green-300 duration-150 rounded-lg"
+>
+  <ng-content select="[buttonIcon]"></ng-content>
+</button>
+} @else {
+<button
+  type="button"
+  class="w-full p-2 bg-green-200 hover:bg-green-300 duration-150 rounded-lg"
+>
+  <ng-content select="[buttonText]"></ng-content>
+</button>
+
+}

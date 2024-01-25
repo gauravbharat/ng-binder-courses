@@ -16,7 +16,15 @@ import {
 import { Subscription, filter } from 'rxjs';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { HeaderComponent } from './shared/components/header/header.component';
-import { MenuLink } from './app.model';
+import { LocalStoreKeys, MenuLink, kCurrencySymbol } from './app.model';
+import { Store } from '@ngrx/store';
+import {
+  getCartItems,
+  getCartItemsTotalValue,
+  getTotalCartItems,
+} from './state/cart.selectors';
+import { CourseCardComponent } from './shared/components/course-card/course-card.component';
+import { ButtonComponent } from './shared/components/button/button.component';
 
 @Component({
   selector: 'app-root',
@@ -27,6 +35,8 @@ import { MenuLink } from './app.model';
     RouterModule,
     FooterComponent,
     HeaderComponent,
+    CourseCardComponent,
+    ButtonComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
@@ -36,6 +46,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   #subscriptions: Subscription = new Subscription();
   #router = inject(Router);
+  #store = inject(Store);
 
   #currentUrl = signal('/');
   showCartWidget = computed(() => {
@@ -44,7 +55,11 @@ export class AppComponent implements OnInit, OnDestroy {
     return currentUrl === MenuLink.courses;
   });
 
-  coursesAdded = true;
+  cartItemCount$ = this.#store.select(getTotalCartItems);
+  cartItems$ = this.#store.select(getCartItems);
+  cartItemTotalValue$ = this.#store.select(getCartItemsTotalValue);
+
+  readonly currencySymbol = kCurrencySymbol;
 
   ngOnInit(): void {
     this.#subscriptions.add(
@@ -53,6 +68,23 @@ export class AppComponent implements OnInit, OnDestroy {
         .subscribe((navigationEnd) => {
           this.#currentUrl.set((navigationEnd as NavigationEnd).url);
         })
+    );
+
+    this.#subscriptions.add(
+      this.#store.subscribe((appState) => {
+        try {
+          const clone = JSON.parse(JSON.stringify(appState));
+          // console.log('appState', appState);
+          localStorage.setItem(
+            LocalStoreKeys.APP_STATE,
+            JSON.stringify(appState)
+          );
+        } catch (e) {
+          if (e instanceof DOMException && e.name === 'QuotaExceededError') {
+            // Handle the error by reducing the size of the data being stored or using a different form of data storage
+          }
+        }
+      })
     );
   }
 

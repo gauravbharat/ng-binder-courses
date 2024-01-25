@@ -2,6 +2,7 @@
   {
     "courseId": "a47c887c-8b4d-497d-9970-455bc6a06fc2",
     "courseName": "Advanced Machine Learning",
+    "courseImageUrl": "https://picsum.photos/id/1/300/200",
     "author": "Alex Johnson",
     "actualPrice": "₹1199",
     "discountPercentage": "15%",
@@ -10,6 +11,7 @@
   {
     "courseId": "abc6e103-d7aa-4d7a-b6ee-17a13413fb15",
     "courseName": "JavaScript Frameworks Masterclass",
+    "courseImageUrl": "https://picsum.photos/id/2/300/200",
     "author": "Emily White",
     "actualPrice": "₹899",
     "discountPercentage": "20%",
@@ -18,6 +20,7 @@
   {
     "courseId": "c5be0274-cbba-4665-a807-a74f7ded0908",
     "courseName": "Full Stack Development with Django",
+    "courseImageUrl": "https://picsum.photos/id/3/300/200",
     "author": "Chris Turner",
     "actualPrice": "₹1499",
     "discountPercentage": "10%",
@@ -26,6 +29,7 @@
   {
     "courseId": "126bba0f-459e-49e7-9c26-cdd3d0588bf2",
     "courseName": "Cybersecurity Essentials",
+    "courseImageUrl": "https://picsum.photos/id/4/300/200",
     "author": "Sophia Davis",
     "actualPrice": "₹1299",
     "discountPercentage": "25%",
@@ -34,6 +38,7 @@
   {
     "courseId": "955be9de-ad4e-4dc2-8aaa-11be8b113bd9",
     "courseName": "Mobile App UX Design",
+    "courseImageUrl": "https://picsum.photos/id/5/300/200",
     "author": "Daniel Smith",
     "actualPrice": "₹999",
     "discountPercentage": "18%",
@@ -42,6 +47,7 @@
   {
     "courseId": "9384219c-3e5f-4c94-b5ac-01873a09ab25",
     "courseName": "Node.js for Beginners",
+    "courseImageUrl": "https://picsum.photos/id/6/300/200",
     "author": "Ava Williams",
     "actualPrice": "₹699",
     "discountPercentage": "22%",
@@ -50,6 +56,7 @@
   {
     "courseId": "2db7a831-188e-47bf-ad69-4bc532b592ac",
     "courseName": "Artificial Intelligence in Business",
+    "courseImageUrl": "https://picsum.photos/id/7/300/200",
     "author": "Noah Turner",
     "actualPrice": "₹1599",
     "discountPercentage": "12%",
@@ -58,6 +65,7 @@
   {
     "courseId": "0f12bd31-944d-40fb-a6ff-c71fbcf3bd53",
     "courseName": "Swift Programming for iOS",
+    "courseImageUrl": "https://picsum.photos/id/8/300/200",
     "author": "Emma Johnson",
     "actualPrice": "₹1099",
     "discountPercentage": "17%",
@@ -66,6 +74,7 @@
   {
     "courseId": "0c6ee929-9dd5-4066-b431-26177f163663",
     "courseName": "Responsive Web Design Principles",
+    "courseImageUrl": "https://picsum.photos/id/9/300/200",
     "author": "Liam White",
     "actualPrice": "₹799",
     "discountPercentage": "21%",
@@ -74,6 +83,7 @@
   {
     "courseId": "595b4fb0-b27f-4eeb-9838-13f2439e19f6",
     "courseName": "Java Fundamentals",
+    "courseImageUrl": "https://picsum.photos/id/10/300/200",
     "author": "Olivia Turner",
     "actualPrice": "₹899",
     "discountPercentage": "0",
@@ -82,6 +92,7 @@
   {
     "courseId": "45ef44f8-74c8-4a47-9bff-c3b52d001145",
     "courseName": "Game Development with Unity",
+    "courseImageUrl": "https://picsum.photos/id/11/300/200",
     "author": "Lucas Davis",
     "actualPrice": "₹1399",
     "discountPercentage": "14%",
@@ -90,6 +101,7 @@
   {
     "courseId": "17b7f242-74c2-4ddc-9583-f538426878a2",
     "courseName": "Python for Data Science",
+    "courseImageUrl": "https://picsum.photos/id/12/300/200",
     "author": "Aria Smith",
     "actualPrice": "₹1199",
     "discountPercentage": "0",
@@ -98,6 +110,7 @@
   {
     "courseId": "abb62710-1769-4efd-bb24-e52cdd0bf389",
     "courseName": "Frontend Development Bootcamp",
+    "courseImageUrl": "https://picsum.photos/id/13/300/200",
     "author": "Mia Johnson",
     "actualPrice": "₹999",
     "discountPercentage": "18%",
@@ -106,6 +119,7 @@
   {
     "courseId": "4f5cda6c-66d2-43ba-9350-072e85b82bf0",
     "courseName": "C# Programming Mastery",
+    "courseImageUrl": "https://picsum.photos/id/14/300/200",
     "author": "Jackson White",
     "actualPrice": "₹1099",
     "discountPercentage": "0",
@@ -114,6 +128,7 @@
   {
     "courseId": "1e083af6-1e0c-4544-adf2-5057c1aeaee0",
     "courseName": "Angular Framework Deep Dive",
+    "courseImageUrl": "https://picsum.photos/id/15/300/200",
     "author": "Ava Turner",
     "actualPrice": "₹1299",
     "discountPercentage": "15%",
@@ -122,6 +137,7 @@
   {
     "courseId": "08789b8f-b7e6-4323-b619-1824f5784495",
     "courseName": "Data Visualization with D3.js",
+    "courseImageUrl": "https://picsum.photos/id/16/300/200",
     "author": "Ethan Davis",
     "actualPrice": "₹899",
     "discountPercentage": "0",
@@ -130,6 +146,7 @@
   {
     "courseId": "d6c06ba6-f06a-4a6d-93b6-9319629e4874",
     "courseName": "Android App Development Basics",
+    "courseImageUrl": "https://picsum.photos/id/17/300/200",
     "author": "Isabella Smith",
     "actualPrice": "₹799",
     "discountPercentage": "0",
@@ -138,6 +155,7 @@
   {
     "courseId": "b2bfab59-b9d3-4c82-ad7c-6517a5ff277c",
     "courseName": "Vue.js for Frontend Development",
+    "courseImageUrl": "https://picsum.photos/id/18/300/200",
     "author": "Logan Johnson",
     "actualPrice": "₹999",
     "discountPercentage": "18%",
@@ -146,6 +164,7 @@
   {
     "courseId": "703b456c-0b2c-41a8-817c-0adb7aef4e57",
     "courseName": "Cloud Computing Fundamentals",
+    "courseImageUrl": "https://picsum.photos/id/19/300/200",
     "author": "Sophie Turner",
     "actualPrice": "₹1199",
     "discountPercentage": "16%",

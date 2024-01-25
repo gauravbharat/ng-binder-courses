@@ -1,0 +1,132 @@
+<div class="w-fit p-2 mx-auto my-2">
+  <div class="w-full relative">
+    @if (!imageLoaded()) {
+    <div
+      class=" {{
+        displayAtCartWidget() ? 'w-full h-[70px]' : 'w-[300px] h-[200px]'
+      }} opacity-50"
+    >
+      <img
+        src="assets/images/logo.png"
+        alt="logo"
+        class="{{
+          displayAtCartWidget()
+            ? 'w-[50px] h-[50px]'
+            : 'w-[150px] h-[150px] py-4'
+        }} object-contain mx-auto"
+        [ngClass]="{ 'animate-pulse': !imageLoadError() }"
+      />
+    </div>
+    }
+
+    <img
+      [hidden]="!imageLoaded()"
+      [src]="course.courseImageUrl"
+      alt="image"
+      class="rounded-t-lg"
+      [ngClass]="{ 'w-[70px] sm:w-auto h-auto': displayAtCartWidget() }"
+      (load)="imageLoaded.set(true)"
+      onerror="imageLoadError.set(true)"
+    />
+
+    <ng-container
+      [ngTemplateOutlet]="deleteItemTrashCan"
+      [ngTemplateOutletContext]="{
+        displayClasses: 'block md:hidden right-1 top-1 '
+      }"
+    ></ng-container>
+  </div>
+
+  <div class="flex flex-col relative">
+    <h2
+      class="font-semibold"
+      [ngClass]="{
+        'text-[10px] sm:text-xs overflow-clip': displayAtCartWidget()
+      }"
+    >
+      {{ course.courseName }}
+    </h2>
+    <h5
+      class="text-gray-700 {{
+        displayAtCartWidget() ? 'text-[10px] overflow-clip' : 'text-[11px]'
+      }}"
+    >
+      {{ course.author }}
+    </h5>
+    <p
+      class="text-sm flex items-baseline {{
+        displayAtCartWidget() ? 'gap-x-1' : 'gap-x-2'
+      }}"
+    >
+      @if (course.discountedPrice > 0) {<span
+        class="font-bold"
+        [ngClass]="{ 'text-[11px] sm:text-[13px]': displayAtCartWidget() }"
+        >{{ currencySymbol }}{{ course.discountedPrice }}</span
+      >}<span
+        class="{{
+          displayAtCartWidget() ? 'text-[10px] sm:text-xs' : 'text-[13px]'
+        }}"
+        [ngClass]="{
+          'line-through ': course.discountedPrice > 0,
+          'font-bold ': course.discountedPrice === 0,
+        }"
+        >{{ currencySymbol }}{{ course.actualPrice }}</span
+      >
+    </p>
+
+    @if (displayAt === 'home') {
+
+    <p class="text-[10px] text-gray-500">{{ course.tags.join("・") }}</p>
+
+    <div
+      class="absolute right-6 top-2/4 cursor-pointer h-fit w-fit duration-150"
+      [ngClass]="{
+        'hover:scale-125': !tempVar,
+        'scale-110 hover:animate-pulse': tempVar
+      }"
+      (click)="tempVar = !tempVar"
+    >
+      <i
+        class="text-green-600"
+        [ngClass]="{
+          'fi fi-rr-heart': !tempVar,
+          'fi fi-sr-heart': tempVar
+        }"
+      ></i>
+    </div>
+    }
+
+    <ng-container
+      [ngTemplateOutlet]="deleteItemTrashCan"
+      [ngTemplateOutletContext]="{
+        displayClasses: 'hidden md:block right-4 top-2/4'
+      }"
+    ></ng-container>
+  </div>
+
+  @if (displayAt === 'home' || displayAt === 'wishlist') {
+  <div
+    class="flex gap-1 items-center text-xs md:text-sm font-semibold md:font-medium my-1"
+  >
+    <app-button class="flex-1" (click)="addToCart()"
+      ><span buttonText>Add to cart</span></app-button
+    >
+    <app-button [iconButton]="true"
+      ><i buttonIcon class="fi fi-rr-angle-right w-4 h-4 px-4 align-sub"></i
+    ></app-button>
+  </div>
+  }
+</div>
+
+<ng-template #deleteItemTrashCan let-displayClasses="displayClasses">
+  @if (displayAtCartWidget()) {
+  <div
+    class="{{
+      displayClasses
+    }} absolute cursor-pointer h-fit w-fit drop-shadow-lg"
+    (click)="removeFromCart()"
+  >
+    <i class="text-red-300 hover:text-red-600 duration-150 fi fi-sr-trash"></i>
+  </div>
+  }
+</ng-template>

@@ -7,12 +7,13 @@ import { provideEffects } from '@ngrx/effects';
 import { courseReducer } from './state/course.reducer';
 import * as courseEffects from './state/course.effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
+import { cartReducer } from './state/cart.reducer';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
-    provideStore({ courses: courseReducer }),
+    provideStore({ courses: courseReducer, cart: cartReducer }),
     provideEffects(courseEffects),
-    provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() })
-],
+    provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
+  ],
 };
