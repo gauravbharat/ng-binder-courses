@@ -2,6 +2,8 @@
   <div class="flex flex-col justify-start w-full overflow-y-scroll">
     <app-header></app-header>
 
+    <ng-container #snackBarContainer> </ng-container>
+
     <div class="flex-1 w-full mb-4">
       <router-outlet></router-outlet>
     </div>
@@ -36,13 +38,42 @@
     </div>
     <div class="overflow-y-scroll w-full">
       @for (cartItem of (cartItems$ | async); track $index) {
-      <!-- <div class="w-full h-36 p-2"> -->
       <app-course-card
         [course]="cartItem"
         displayAt="cartWidget"
       ></app-course-card>
-      <!-- </div> -->
       }
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #snackBar>
+  <div class="fixed w-full h-fit bottom-8 sm:top-14 z-[60] drop-shadow-lg">
+    <div
+      class="mx-auto w-[90%] md:w-1/2 xl:w-1/3 flex justify-start items-center gap-2 p-2 rounded-lg text-sm text-white bg-gradient-to-r {{
+        errorSnackBar()
+          ? 'from-red-600 to-red-900 '
+          : 'from-green-600 to-green-900'
+      }}"
+    >
+      <div
+        class="text-2xl px-2 {{
+          errorSnackBar() ? 'text-red-700' : 'text-green-700'
+        }}"
+      >
+        <i class="fi fi-sr-triangle-warning align-sub"></i>
+      </div>
+      <div class="flex-1">
+        @for (item of snackBarMessage(); track $index; let last = $last) {
+        {{ item }}
+        @if (!last) {<br />} }
+      </div>
+      <div
+        class="px-2 self-start cursor-pointer hover:rotate-90 duration-150"
+        (click)="clearSnackBar()"
+      >
+        &#x2715;
+      </div>
     </div>
   </div>
 </ng-template>

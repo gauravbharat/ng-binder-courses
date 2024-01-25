@@ -37,3 +37,9 @@ export const kCurrencySymbol = '₹';
 export enum LocalStoreKeys {
   APP_STATE = 'appState',
 }
+
+export type SnackBarStateProps = {
+  snackBarMessage: string[];
+  errorSnackBar?: boolean;
+  duration?: number;
+};

@@ -13,6 +13,7 @@ import { cartItemExists } from '../../../state/cart.selectors';
 import { take } from 'rxjs';
 import { CartActions } from '../../../state/cart.actions';
 import { ButtonComponent } from '../button/button.component';
+import { UtilService } from '../../services/util.service';
 
 type CourseCardDisplayParent = 'home' | 'cartWidget' | 'cart' | 'wishlist';
 
@@ -36,6 +37,7 @@ export class CourseCardComponent implements OnInit {
   tempVar = false;
 
   #store = inject(Store);
+  #utilService = inject(UtilService);
 
   ngOnInit(): void {
     this.displayAtCartWidget.set(this.displayAt === 'cartWidget');
@@ -52,9 +54,17 @@ export class CourseCardComponent implements OnInit {
           this.#store.dispatch(
             CartActions.addCartItem({ course: this.course })
           );
-          // show success message
+
+          this.#utilService.showSnackbar({
+            snackBarMessage: [`Course successfully added in the cart`],
+          });
         } else {
-          // TODO: show exists message
+          this.#utilService.showSnackbar({
+            snackBarMessage: [
+              `${this.course.courseName} already exists in the cart`,
+            ],
+            errorSnackBar: true,
+          });
         }
       });
   }

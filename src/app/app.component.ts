@@ -2,6 +2,10 @@ import {
   Component,
   OnDestroy,
   OnInit,
+  TemplateRef,
+  ViewChild,
+  ViewContainerRef,
+  WritableSignal,
   computed,
   inject,
   signal,
@@ -13,10 +17,15 @@ import {
   RouterModule,
   RouterOutlet,
 } from '@angular/router';
-import { Subscription, filter } from 'rxjs';
+import { Subscription, filter, timer } from 'rxjs';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { HeaderComponent } from './shared/components/header/header.component';
-import { LocalStoreKeys, MenuLink, kCurrencySymbol } from './app.model';
+import {
+  LocalStoreKeys,
+  MenuLink,
+  SnackBarStateProps,
+  kCurrencySymbol,
+} from './app.model';
 import { Store } from '@ngrx/store';
 import {
   getCartItems,
@@ -25,6 +34,7 @@ import {
 } from './state/cart.selectors';
 import { CourseCardComponent } from './shared/components/course-card/course-card.component';
 import { ButtonComponent } from './shared/components/button/button.component';
+import { UtilService } from './shared/services/util.service';
 
 @Component({
   selector: 'app-root',
@@ -42,18 +52,31 @@ import { ButtonComponent } from './shared/components/button/button.component';
   styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit, OnDestroy {
+  @ViewChild('snackBarContainer', { read: ViewContainerRef })
+  private _snackBarContainer!: ViewContainerRef;
+  @ViewChild('snackBar', { read: TemplateRef })
+  private _snackBarChild!: TemplateRef<HTMLDivElement>;
+
   title = 'ng-binder-courses';
 
   #subscriptions: Subscription = new Subscription();
+  #snackBarTimerSub!: Subscription;
+
   #router = inject(Router);
   #store = inject(Store);
+  #utilService = inject(UtilService);
 
+  #snackBarMessage: WritableSignal<string[]> = signal([]);
+  #errorSnackBar: WritableSignal<boolean> = signal(false);
   #currentUrl = signal('/');
   showCartWidget = computed(() => {
     const currentUrl = this.#currentUrl();
 
     return currentUrl === MenuLink.courses;
   });
+
+  snackBarMessage = this.#snackBarMessage.asReadonly();
+  errorSnackBar = this.#errorSnackBar.asReadonly();
 
   cartItemCount$ = this.#store.select(getTotalCartItems);
   cartItems$ = this.#store.select(getCartItems);
@@ -86,9 +109,41 @@ export class AppComponent implements OnInit, OnDestroy {
         }
       })
     );
+
+    this.#subscriptions.add(
+      this.#utilService.snackBarTrigger$.subscribe(
+        (newSnackBarProps: SnackBarStateProps) => {
+          console.log('newSnackBarProps', newSnackBarProps);
+
+          this.clearSnackBar();
+
+          if (newSnackBarProps.snackBarMessage.length > 0) {
+            this.#errorSnackBar.set(newSnackBarProps?.errorSnackBar || false);
+            this.#snackBarMessage.set(newSnackBarProps.snackBarMessage);
+
+            this._snackBarContainer.createEmbeddedView(this._snackBarChild);
+            this.#snackBarTimerSub = timer(
+              newSnackBarProps.duration!
+            ).subscribe({
+              complete: () => {
+                this._snackBarContainer.clear();
+              },
+            });
+          }
+        }
+      )
+    );
+  }
+
+  clearSnackBar(): void {
+    this._snackBarContainer.clear();
+    this.#snackBarMessage.set([]);
+    this.#snackBarTimerSub?.unsubscribe();
+    this.#errorSnackBar.set(false);
   }
 
   ngOnDestroy(): void {
     this.#subscriptions.unsubscribe();
+    this.#snackBarTimerSub?.unsubscribe();
   }
 }
