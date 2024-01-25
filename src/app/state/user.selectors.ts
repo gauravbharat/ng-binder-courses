@@ -14,3 +14,16 @@ export const selectIsCourseAlreadyWishlisted = (courseId: string) =>
     (state) =>
       state.wishlistedItems.findIndex((v) => v.courseId === courseId) > -1
   );
+
+export const selectUser = createSelector(
+  selectUserSelector,
+  (state) => state.user
+);
+export const selectIsUserLoggedIn = createSelector(
+  selectUserSelector,
+  (state) => !!state.user
+);
+export const selectIsUserLoading = createSelector(
+  selectUserSelector,
+  (state) => state.isLoading
+);

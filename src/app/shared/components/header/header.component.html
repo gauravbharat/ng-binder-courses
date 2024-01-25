@@ -15,8 +15,14 @@
 
   <div class="relative flex items-center gap-2">
     <div class="flex items-center gap-2 gap-x-6 sm:gap-x-4">
-      @for (menuItem of menuItems; track menuItem.routerLinkName) {
+      @for (menuItem of menuItems; track menuItem.routerLinkName; let index =
+      $index) {
       <a
+        *ngIf="
+          menuItem.routerLink !== menuLink.profile ||
+          (menuItem.routerLink === menuLink.profile &&
+            (isUserLoggedIn$ | async))
+        "
         class="cursor-pointer hover:text-primaryGreen duration-150"
         [routerLink]="[menuItem.routerLink]"
         routerLinkActive="binder-link-active text-primaryGreen"
@@ -29,6 +35,20 @@
         }}</span></a
       >
       }
+
+      <ng-container *ngIf="!(isUserLoggedIn$ | async)">
+        @if (isUserLoading$ | async) {
+        <div
+          class="border-[1px] border-l-0 border-b-0 border-green-500 animate-spin w-4 h-4 rounded-full"
+        ></div>
+        } @else {
+        <a
+          class="cursor-pointer hover:text-primaryGreen duration-150"
+          (click)="$event.preventDefault(); onLogin()"
+          >Sign in</a
+        >
+        }
+      </ng-container>
     </div>
   </div>
 </header>

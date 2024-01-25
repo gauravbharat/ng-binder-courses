@@ -1,7 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MenuLink, getMenuLinkName } from '../../../app.model';
+import { Store } from '@ngrx/store';
+import { UserActions } from '../../../state/user.actions';
+import {
+  selectIsUserLoading,
+  selectIsUserLoggedIn,
+} from '../../../state/user.selectors';
 
 @Component({
   selector: 'app-header',
@@ -11,6 +17,7 @@ import { MenuLink, getMenuLinkName } from '../../../app.model';
   styleUrl: './header.component.css',
 })
 export class HeaderComponent {
+  readonly menuLink = MenuLink;
   readonly menuItems = Object.freeze([
     Object.freeze({
       routerLink: MenuLink.courses,
@@ -40,4 +47,15 @@ export class HeaderComponent {
     paths: 'exact',
     fragment: 'exact',
   });
+
+  #store = inject(Store);
+
+  isUserLoggedIn$ = this.#store.select(selectIsUserLoggedIn);
+  isUserLoading$ = this.#store.select(selectIsUserLoading);
+
+  onLogin(): void {
+    this.#store.dispatch(
+      UserActions.loginUser({ username: 'kminchelle', password: '0lelplR' })
+    );
+  }
 }

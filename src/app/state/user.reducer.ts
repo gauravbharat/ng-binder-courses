@@ -1,14 +1,20 @@
 import { createReducer, on } from '@ngrx/store';
-import { Course } from '../app.model';
+import { ApiError, Course, User } from '../app.model';
 import { getInitialState } from './app.state';
 import { UserActions } from './user.actions';
 
 export type UserState = {
-  wishlistedItems: Course[];
+  wishlistedItems: Course[]; //this should be stored on the server and fetched with the user details
+  user: User | undefined;
+  isLoading: boolean;
+  apiError: ApiError | undefined;
 };
 
 const initialState: UserState = {
   wishlistedItems: [],
+  user: undefined,
+  isLoading: false,
+  apiError: undefined,
 };
 
 export const userReducer = createReducer(
@@ -43,5 +49,40 @@ export const userReducer = createReducer(
   on(
     UserActions.clearWishlist,
     (state): UserState => ({ ...state, wishlistedItems: [] })
+  ),
+  on(
+    UserActions.loginUser,
+    (state): UserState => ({
+      ...state,
+      isLoading: true,
+    })
+  ),
+  on(
+    UserActions.loginSuccess,
+    (state, { user }): UserState => ({
+      ...state,
+      user,
+      isLoading: false,
+      apiError: undefined,
+    })
+  ),
+  on(
+    UserActions.loginFailed,
+    (state, { errorDetails }): UserState => ({
+      ...state,
+      user: undefined,
+      isLoading: false,
+      apiError: errorDetails,
+    })
+  ),
+  on(
+    UserActions.logoutUser,
+    (state): UserState => ({
+      ...state,
+      isLoading: false,
+      user: undefined,
+      apiError: undefined,
+      wishlistedItems: [], // this should be cleared if user login failed or user logout, but should be server saved to fetch again
+    })
   )
 );

@@ -17,7 +17,7 @@ import {
   RouterModule,
   RouterOutlet,
 } from '@angular/router';
-import { Subscription, filter, timer } from 'rxjs';
+import { Subscription, filter, take, timer } from 'rxjs';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { HeaderComponent } from './shared/components/header/header.component';
 import {
@@ -35,6 +35,8 @@ import {
 import { CourseCardComponent } from './shared/components/course-card/course-card.component';
 import { ButtonComponent } from './shared/components/button/button.component';
 import { UtilService } from './shared/services/util.service';
+import { selectIsUserLoggedIn } from './state/user.selectors';
+import { UserActions } from './state/user.actions';
 
 @Component({
   selector: 'app-root',
@@ -113,7 +115,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.#subscriptions.add(
       this.#utilService.snackBarTrigger$.subscribe(
         (newSnackBarProps: SnackBarStateProps) => {
-          console.log('newSnackBarProps', newSnackBarProps);
+          // console.log('newSnackBarProps', newSnackBarProps);
 
           this.clearSnackBar();
 
@@ -133,6 +135,24 @@ export class AppComponent implements OnInit, OnDestroy {
         }
       )
     );
+
+    /**
+     * since authentication and authorization needs to be handled implicitly with no separate login page specified in requirement
+     * passing hard-coded credentials as expected by the dummy auth api https://dummyjson.com/docs/auth
+     */
+    this.#store
+      .select(selectIsUserLoggedIn)
+      .pipe(take(1))
+      .subscribe((isUserLoggedIn) => {
+        if (!isUserLoggedIn) {
+          this.#store.dispatch(
+            UserActions.loginUser({
+              username: 'kminchelle',
+              password: '0lelplR',
+            })
+          );
+        }
+      });
   }
 
   clearSnackBar(): void {
