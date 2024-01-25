@@ -81,17 +81,15 @@
     <div
       class="absolute right-6 top-2/4 cursor-pointer h-fit w-fit duration-150"
       [ngClass]="{
-        'hover:scale-125': !tempVar,
-        'scale-110 hover:animate-pulse': tempVar
+        'hover:scale-125': !isCourseWishlisted(),
+        'scale-110 hover:animate-pulse': isCourseWishlisted()
       }"
-      (click)="tempVar = !tempVar"
+      (click)="isCourseWishlisted() ? removeFromWishlist() : addToWishlist()"
     >
       <i
-        class="text-green-600"
-        [ngClass]="{
-          'fi fi-rr-heart': !tempVar,
-          'fi fi-sr-heart': tempVar
-        }"
+        class="text-green-600 {{
+          isCourseWishlisted() ? 'fi fi-sr-heart' : 'fi fi-rr-heart'
+        }}"
       ></i>
     </div>
     }
