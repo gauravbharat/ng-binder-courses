@@ -28,9 +28,9 @@ import {
 } from './app.model';
 import { Store } from '@ngrx/store';
 import {
-  getCartItems,
-  getCartItemsTotalValue,
-  getTotalCartItems,
+  selectCartItems,
+  selectCartItemsTotalValue,
+  selectTotalCartItems,
 } from './state/cart.selectors';
 import { CourseCardComponent } from './shared/components/course-card/course-card.component';
 import { ButtonComponent } from './shared/components/button/button.component';
@@ -78,9 +78,9 @@ export class AppComponent implements OnInit, OnDestroy {
   snackBarMessage = this.#snackBarMessage.asReadonly();
   errorSnackBar = this.#errorSnackBar.asReadonly();
 
-  cartItemCount$ = this.#store.select(getTotalCartItems);
-  cartItems$ = this.#store.select(getCartItems);
-  cartItemTotalValue$ = this.#store.select(getCartItemsTotalValue);
+  cartItemCount$ = this.#store.select(selectTotalCartItems);
+  cartItems$ = this.#store.select(selectCartItems);
+  cartItemTotalValue$ = this.#store.select(selectCartItemsTotalValue);
 
   readonly currencySymbol = kCurrencySymbol;
 
@@ -96,7 +96,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.#subscriptions.add(
       this.#store.subscribe((appState) => {
         try {
-          const clone = JSON.parse(JSON.stringify(appState));
+          // const clone = JSON.parse(JSON.stringify(appState));
           // console.log('appState', appState);
           localStorage.setItem(
             LocalStoreKeys.APP_STATE,

@@ -19,11 +19,14 @@ module.exports = {
       },
     },
   ],
-  parser: "@typescript-eslint/parser",
   parserOptions: {
+    parser: "@typescript-eslint/parser",
+    project: "tsconfig.json",
     ecmaVersion: "latest",
     sourceType: "module",
+    tsconfigRootDir: __dirname,
   },
+  ignorePatterns: [".eslintrc.js"],
   plugins: ["@typescript-eslint"],
   rules: {},
 };

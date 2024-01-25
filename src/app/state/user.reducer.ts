@@ -13,14 +13,17 @@ const initialState: UserState = {
 
 export const userReducer = createReducer(
   getInitialState('user') || initialState,
-  on(UserActions.addToWishlist, (state, { course }) => ({
-    ...state,
-    wishlistedItems: [
-      JSON.parse(JSON.stringify(course)) as Course,
-      ...state.wishlistedItems,
-    ],
-  })),
-  on(UserActions.removeFromWishlist, (state, { courseId }) => {
+  on(
+    UserActions.addToWishlist,
+    (state, { course }): UserState => ({
+      ...state,
+      wishlistedItems: [
+        JSON.parse(JSON.stringify(course)) as Course,
+        ...state.wishlistedItems,
+      ],
+    })
+  ),
+  on(UserActions.removeFromWishlist, (state, { courseId }): UserState => {
     const clonedWishlistedItems = <Course[]>(
       JSON.parse(JSON.stringify(state.wishlistedItems))
     );
@@ -37,5 +40,8 @@ export const userReducer = createReducer(
       wishlistedItems: clonedWishlistedItems,
     };
   }),
-  on(UserActions.clearWishlist, (state) => ({ ...state, wishlistedItems: [] }))
+  on(
+    UserActions.clearWishlist,
+    (state): UserState => ({ ...state, wishlistedItems: [] })
+  )
 );

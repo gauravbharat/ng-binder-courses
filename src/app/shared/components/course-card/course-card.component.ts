@@ -10,12 +10,12 @@ import {
 import { Course, kCurrencySymbol } from '../../../app.model';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
-import { cartItemExists } from '../../../state/cart.selectors';
+import { selectIsCartItemExists } from '../../../state/cart.selectors';
 import { Subscription, take } from 'rxjs';
 import { CartActions } from '../../../state/cart.actions';
 import { ButtonComponent } from '../button/button.component';
 import { UtilService } from '../../services/util.service';
-import { isCourseAlreadyWishlisted } from '../../../state/user.selectors';
+import { selectIsCourseAlreadyWishlisted } from '../../../state/user.selectors';
 import { UserActions } from '../../../state/user.actions';
 
 type CourseCardDisplayParent = 'home' | 'cartWidget' | 'cart' | 'wishlist';
@@ -47,7 +47,7 @@ export class CourseCardComponent implements OnInit, OnDestroy {
 
     this.#subscriptions.add(
       this.#store
-        .select(isCourseAlreadyWishlisted(this.course.courseId))
+        .select(selectIsCourseAlreadyWishlisted(this.course.courseId))
         .subscribe((isWishlisted) => {
           this.isCourseWishlisted.set(isWishlisted);
         })
@@ -60,7 +60,7 @@ export class CourseCardComponent implements OnInit, OnDestroy {
 
   addToCart(): void {
     this.#store
-      .select(cartItemExists(this.course.courseId))
+      .select(selectIsCartItemExists(this.course.courseId))
       .pipe(take(1))
       .subscribe((isCartItemExists) => {
         // console.log('isCartItemExists', isCartItemExists > -1);

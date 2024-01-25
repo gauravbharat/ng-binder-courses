@@ -14,8 +14,11 @@ export const initialState: CourseState = {
 export const courseReducer = createReducer(
   // getInitialState('courses') || initialState,
   initialState,
-  on(CourseActions.fetchCoursesDataSuccess, (state, { formattedCourses }) => ({
-    ...state,
-    formattedCourses: [...formattedCourses],
-  }))
+  on(
+    CourseActions.fetchCoursesDataSuccess,
+    (state, { formattedCourses }): CourseState => ({
+      ...state,
+      formattedCourses: [...formattedCourses],
+    })
+  )
 );

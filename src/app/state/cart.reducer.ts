@@ -13,14 +13,17 @@ export const initialState: CartState = {
 
 export const cartReducer = createReducer(
   getInitialState('cart') || initialState,
-  on(CartActions.addCartItem, (state, { course }) => ({
-    ...state,
-    cartItems: [
-      JSON.parse(JSON.stringify(course)) as Course,
-      ...state.cartItems,
-    ],
-  })),
-  on(CartActions.removeCartItem, (state, { courseId }) => {
+  on(
+    CartActions.addCartItem,
+    (state, { course }): CartState => ({
+      ...state,
+      cartItems: [
+        JSON.parse(JSON.stringify(course)) as Course,
+        ...state.cartItems,
+      ],
+    })
+  ),
+  on(CartActions.removeCartItem, (state, { courseId }): CartState => {
     const clonedCartItems = <Course[]>(
       JSON.parse(JSON.stringify(state.cartItems))
     );
@@ -37,5 +40,5 @@ export const cartReducer = createReducer(
       cartItems: clonedCartItems,
     };
   }),
-  on(CartActions.clearCart, (state) => ({ ...state, cartItems: [] }))
+  on(CartActions.clearCart, (state): CartState => ({ ...state, cartItems: [] }))
 );
