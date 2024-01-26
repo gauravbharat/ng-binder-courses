@@ -13,6 +13,12 @@ export const selectFormattedCourses = createSelector(
   selectCourseSelector,
   (state) => state.formattedCourses
 );
+
+export const selectIsFetchingCourses = createSelector(
+  selectCourseSelector,
+  (state) => state.isLoading
+);
+
 export const selectDisplayCourses = createSelector(
   selectCourseSelector,
   (state) => state.displayCourses
@@ -22,3 +28,12 @@ export const selectMaxPageLength = createSelector(
   selectCourseSelector,
   (state) => state.length
 );
+
+export const selectCourseById = (courseId: string) =>
+  createSelector(
+    selectCourseSelector,
+    (state) =>
+      <Readonly<Course | undefined>>(
+        state.formattedCourses.find((v) => v.courseId === courseId)
+      )
+  );

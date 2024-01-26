@@ -8,7 +8,7 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { Course, kCurrencySymbol } from '../../../app.model';
+import { Course, MenuLink, kCurrencySymbol } from '../../../app.model';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { selectIsCartItemExists } from '../../../state/cart.selectors';
@@ -18,6 +18,7 @@ import { ButtonComponent } from '../button/button.component';
 import { UtilService } from '../../services/util.service';
 import { selectIsCourseAlreadyWishlisted } from '../../../state/user.selectors';
 import { UserActions } from '../../../state/user.actions';
+import { Router } from '@angular/router';
 
 type CourseCardDisplayParent = 'home' | 'cartWidget' | 'cart' | 'wishlist';
 
@@ -61,6 +62,7 @@ export class CourseCardComponent implements OnInit, OnDestroy {
   #store = inject(Store);
   #utilService = inject(UtilService);
   #subscriptions = new Subscription();
+  #router = inject(Router);
 
   ngOnInit(): void {
     this.#displayAt.set(this.displayAt);
@@ -133,5 +135,9 @@ export class CourseCardComponent implements OnInit, OnDestroy {
     this.#store.dispatch(
       UserActions.removeFromWishlist({ courseId: this.course.courseId })
     );
+  }
+
+  openCourseDetail(): void {
+    this.#router.navigate([`${MenuLink.course}`, this.course.courseId]);
   }
 }

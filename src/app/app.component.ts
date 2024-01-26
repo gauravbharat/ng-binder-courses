@@ -38,6 +38,8 @@ import { UtilService } from './shared/services/util.service';
 import { selectIsUserLoggedIn } from './state/user.selectors';
 import { UserActions } from './state/user.actions';
 import { ModalComponent } from './shared/components/modal/modal.component';
+import { selectFormattedCourses } from './state/course.selectors';
+import { CourseActions } from './state/course.actions';
 
 @Component({
   selector: 'app-root',
@@ -72,7 +74,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   #snackBarMessage: WritableSignal<string[]> = signal([]);
   #errorSnackBar: WritableSignal<boolean> = signal(false);
-  #currentUrl = signal('/');
+  #currentUrl: WritableSignal<string | undefined> = signal(undefined);
   showCartWidget = computed(() => {
     const currentUrl = this.#currentUrl();
 
@@ -98,11 +100,18 @@ export class AppComponent implements OnInit, OnDestroy {
         })
     );
 
+    this.#store
+      .select(selectFormattedCourses)
+      .pipe(take(1))
+      .subscribe((formattedData) => {
+        if (formattedData.length === 0) {
+          this.#store.dispatch(CourseActions.fetchCoursesData());
+        }
+      });
+
     this.#subscriptions.add(
       this.#store.subscribe((appState) => {
         try {
-          // const clone = JSON.parse(JSON.stringify(appState));
-          // console.log('appState', appState);
           localStorage.setItem(
             LocalStoreKeys.APP_STATE,
             JSON.stringify(appState)

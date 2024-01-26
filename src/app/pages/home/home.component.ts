@@ -68,19 +68,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   });
 
   ngOnInit(): void {
-    this.#store
-      .select(selectFormattedCourses)
-      .pipe(take(1))
-      .subscribe((formattedData) => {
-        // console.log('HomeComponent : formattedData', formattedData);
-
-        if (formattedData.length === 0) {
-          setTimeout(() => {
-            this.#store.dispatch(CourseActions.fetchCoursesData());
-          }, 0);
-        }
-      });
-
     this.#subscriptions.add(
       this.#store.select(selectMaxPageLength).subscribe((length) => {
         this.#maxPageLength.set(length);

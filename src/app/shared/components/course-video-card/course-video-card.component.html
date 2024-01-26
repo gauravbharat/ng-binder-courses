@@ -1,0 +1,77 @@
+<div
+  class="w-full h-full p-2 mx-auto my-2 sm:my-0 sm:mb-2 flex flex-col md:border md:border-green-700 md:rounded-lg md:shadow-lg"
+>
+  <!-- Due to time constraints, did not add a custom video dialog -->
+  <video
+    class="w-full cursor-pointer min-h-[280px]"
+    controls
+    preload="none"
+    [poster]="course.courseImageUrl"
+    controlsList="nodownload"
+    (click)="videoParent.play()"
+    #videoParent
+  >
+    <source
+      (error)="videoParent.poster = course.courseImageUrl"
+      src="
+      https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4
+      "
+    />
+  </video>
+
+  <div class="flex-1 flex flex-col relative">
+    <h2 class="block md:hidden font-semibold text-xl sm:text-2xl">
+      {{ course.courseName }}
+    </h2>
+    <h5 class="block md:hidden text-gray-600 text-xs sm:text-sm">
+      By {{ course.author }}
+    </h5>
+    <p class="block md:hidden text-[10px] text-gray-500">
+      {{ course.tags.join("・") }}
+    </p>
+
+    <p class="text-sm flex items-center gap-x-2">
+      @if (course.discountedPrice > 0) {<span
+        class="font-bold text-xl sm:text-2xl"
+        >{{ currencySymbol }}{{ course.discountedPrice | number }}</span
+      >}<span
+        class="text-sm sm:text-lg text-gray-600"
+        [ngClass]="{
+          'line-through ': course.discountedPrice > 0,
+          'font-bold ': course.discountedPrice === 0,
+        }"
+        >{{ currencySymbol }}{{ course.actualPrice | number }}</span
+      >
+      <span *ngIf="course.discountPercentage > 0" class="text-sm sm:text-lg"
+        >{{ course.discountPercentage }}% off</span
+      >
+    </p>
+    <!-- Wishlist add/remove buttons -->
+
+    <button
+      type="button"
+      class="absolute right-6 top-2/4 h-fit w-fit duration-150"
+      [ngClass]="{
+        'hover:scale-125': !isCourseWishlisted(),
+        'scale-110 hover:animate-pulse': isCourseWishlisted()
+      }"
+      (click)="isCourseWishlisted() ? removeFromWishlist() : addToWishlist()"
+    >
+      <i
+        class="text-green-600 {{
+          isCourseWishlisted() ? 'fi fi-sr-heart' : 'fi fi-rr-heart'
+        }}"
+      ></i>
+    </button>
+  </div>
+
+  <div
+    class="flex gap-1 items-center text-xs md:text-sm font-semibold md:font-medium my-4"
+  >
+    <app-button class="flex-1" (click)="addToCart()"
+      ><span buttonText
+        >{{ displayAt === "home" ? "Add" : "Move" }} to cart</span
+      ></app-button
+    >
+  </div>
+</div>

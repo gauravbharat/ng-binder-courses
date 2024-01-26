@@ -1,0 +1,36 @@
+<section id="course-detail">
+  <app-banner bannerText="Discover Latest Courses on Angular"></app-banner>
+
+  <ng-container *ngIf="courseDetail() as courseDetail">
+    <div
+      class="p-2 text-xs sm:text-sm font-medium text-gray-600 flex space-x-1 md:space-x-2"
+    >
+      <a
+        class="hover:text-green-500"
+        routerLink="/"
+        (click)="$event.preventDefault()"
+        >All Courses</a
+      >
+      <span> > </span> <span>{{ courseDetail.courseName }}</span>
+    </div>
+
+    <div
+      class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-y-2 md:gap-x-4 my-1 sm:my-4"
+    >
+      <div class="hidden md:block order-last md:order-1 p-2">
+        <div class="text-xl md:text-2xl lg:text-3xl">
+          {{ courseDetail?.courseName }}
+        </div>
+        <div class="text-gray-600 text-xs sm:text-lg">
+          By {{ courseDetail?.author }}
+        </div>
+        <p class="text-[10px] sm:text-xs text-gray-500">
+          {{ courseDetail.tags.join("・") }}
+        </p>
+      </div>
+      <div class="order-1 md:order-last">
+        <app-course-video-card [course]="courseDetail"></app-course-video-card>
+      </div>
+    </div>
+  </ng-container>
+</section>

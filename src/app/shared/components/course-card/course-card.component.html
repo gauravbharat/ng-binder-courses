@@ -141,7 +141,7 @@
         >{{ displayAt === "home" ? "Add" : "Move" }} to cart</span
       ></app-button
     >
-    <app-button [iconButton]="true"
+    <app-button [iconButton]="true" (click)="openCourseDetail()"
       ><i buttonIcon class="fi fi-rr-angle-right w-4 h-4 px-4 align-sub"></i
     ></app-button>
   </div>

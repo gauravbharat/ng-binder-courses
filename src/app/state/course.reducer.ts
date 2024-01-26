@@ -16,6 +16,7 @@ export interface CourseOptions {
 
 export interface CourseState extends CourseOptions {
   formattedCourses: ReadonlyArray<Course>;
+  isLoading: boolean;
 }
 
 export const initialState: CourseState = {
@@ -26,6 +27,7 @@ export const initialState: CourseState = {
   pageIndex: 0,
   pageSize: 4,
   length: 0,
+  isLoading: true,
 };
 
 export const courseReducer = createReducer(
@@ -35,6 +37,7 @@ export const courseReducer = createReducer(
     (state, { formattedCourses }): CourseState => ({
       ...state,
       formattedCourses: [...formattedCourses],
+      isLoading: false,
     })
   ),
   on(

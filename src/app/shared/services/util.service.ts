@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { ModalStateProps, SnackBarStateProps } from '../../app.model';
+import { validate as isValidUUID } from 'uuid';
 
 @Injectable({
   providedIn: 'root',
@@ -29,5 +30,9 @@ export class UtilService {
   closeModal(): void {
     this._modalTrigger.next(undefined);
     this._modalClosed.next(true);
+  }
+
+  isValidId(id: string) {
+    return isValidUUID(id);
   }
 }

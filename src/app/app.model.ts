@@ -5,6 +5,11 @@ export enum MenuLink {
   wishlist = '/wishlist',
   cart = '/cart',
   profile = '/profile',
+  course = '/course',
+}
+
+export enum RoutePathParams {
+  COURSE_ID = ':courseId',
 }
 
 export const getMenuLinkName = (menuLink = MenuLink.courses) => {

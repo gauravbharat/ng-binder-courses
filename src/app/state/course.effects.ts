@@ -1,35 +1,24 @@
 import { inject } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { CourseActions } from './course.actions';
-import { exhaustMap, map, of, withLatestFrom } from 'rxjs';
-import data from '../data/data.json';
+import { delay, exhaustMap, map, of, withLatestFrom } from 'rxjs';
+
 import { Course, kCurrencySymbol } from '../app.model';
 import { Store } from '@ngrx/store';
 import { selectFormattedCourses } from './course.selectors';
+import { CourseService } from '../shared/services/course.service';
 
 export const loadCourses$ = createEffect(
-  (action$ = inject(Actions), store = inject(Store)) => {
+  (
+    action$ = inject(Actions),
+    store = inject(Store),
+    courseService = inject(CourseService)
+  ) => {
     return action$.pipe(
       ofType(CourseActions.fetchCoursesData),
       exhaustMap(() =>
-        of(
-          data.map((v) => {
-            const actualPrice = +v.actualPrice.replace(kCurrencySymbol, '');
-            const discountPercentage = +v.discountPercentage.replace('%', '');
-            const discountAmount = (discountPercentage / 100) * actualPrice;
-            const discountedPrice =
-              discountPercentage > 0
-                ? Math.round(actualPrice - discountAmount)
-                : 0;
-
-            return {
-              ...v,
-              actualPrice,
-              discountPercentage,
-              discountedPrice,
-            };
-          })
-        ).pipe(
+        courseService.getCourses().pipe(
+          // delay(5000),
           map((formattedCourses) => {
             store.dispatch(
               CourseActions.fetchCoursesDataSuccess({ formattedCourses })
