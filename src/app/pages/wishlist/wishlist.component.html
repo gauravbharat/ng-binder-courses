@@ -1,6 +1,18 @@
 <section id="wishlist">
   <app-banner [smallBanner]="true" bannerText="Wishlisted courses"></app-banner>
 
+  @if ((totalWishlistedCourses$ | async) === 0) {
+  <div class="max-w-4xl mx-auto p-2 my-12 text-center text-gray-600">
+    Always a great time to explore learning! Check available courses
+    <a
+      class="font-semibold hover:text-green-500 duration-200"
+      [routerLink]="['/']"
+      (click)="$event.preventDefault()"
+      >here</a
+    >.
+  </div>
+  } @else {
+
   <div
     class="max-w-4xl mx-auto p-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 my-4"
   >
@@ -8,4 +20,5 @@
     <app-course-card [course]="course" displayAt="wishlist"></app-course-card>
     }
   </div>
+  }
 </section>

@@ -5,6 +5,7 @@
     class="cursor-pointer"
     [routerLink]="['/']"
     routerLinkActive="router-link-active"
+    (click)="$event.preventDefault()"
   >
     <img
       class="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 aspect-square hover:scale-125 duration-300"
@@ -27,6 +28,7 @@
         [routerLink]="[menuItem.routerLink]"
         routerLinkActive="binder-link-active text-primaryGreen"
         [routerLinkActiveOptions]="routerLinkActiveOptions"
+        (click)="$event.preventDefault()"
         ><i
           class="block sm:hidden text-xl {{ menuItem.routerLinkIconClass }}"
         ></i>
