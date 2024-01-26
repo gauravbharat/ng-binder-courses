@@ -19,7 +19,7 @@ export class UtilService {
   modalClosed$ = this._modalClosed.asObservable();
 
   showSnackbar(props: SnackBarStateProps): void {
-    const { errorSnackBar = false, snackBarMessage, duration = 3000 } = props;
+    const { errorSnackBar = false, snackBarMessage, duration = 2000 } = props;
     this._snackBarTrigger.next({ errorSnackBar, snackBarMessage, duration });
   }
 
