@@ -70,7 +70,7 @@ export const applySearchOptions$ = createEffect(
       exhaustMap(([props, formattedCourses]) => {
         return of(true).pipe(
           map(() => {
-            console.log('applySearchOptions$', props);
+            // console.log('applySearchOptions$', props);
 
             const sortOrder = props.sortOrder || 'none';
             const searchText = props.searchText || '';

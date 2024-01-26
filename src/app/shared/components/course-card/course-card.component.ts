@@ -70,6 +70,8 @@ export class CourseCardComponent implements OnInit, OnDestroy {
             CartActions.addCartItem({ course: this.course })
           );
 
+          this.removeFromWishlist();
+
           this.#utilService.showSnackbar({
             snackBarMessage: [`Course successfully added in the cart`],
           });
