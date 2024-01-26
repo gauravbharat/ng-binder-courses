@@ -10,6 +10,7 @@
   }
 }
 
-app-button {
+app-button,
+app-course-card {
   display: contents;
 }

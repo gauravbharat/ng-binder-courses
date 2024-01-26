@@ -37,6 +37,7 @@ import { ButtonComponent } from './shared/components/button/button.component';
 import { UtilService } from './shared/services/util.service';
 import { selectIsUserLoggedIn } from './state/user.selectors';
 import { UserActions } from './state/user.actions';
+import { ModalComponent } from './shared/components/modal/modal.component';
 
 @Component({
   selector: 'app-root',
@@ -49,6 +50,7 @@ import { UserActions } from './state/user.actions';
     HeaderComponent,
     CourseCardComponent,
     ButtonComponent,
+    ModalComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
@@ -83,6 +85,7 @@ export class AppComponent implements OnInit, OnDestroy {
   cartItemCount$ = this.#store.select(selectTotalCartItems);
   cartItems$ = this.#store.select(selectCartItems);
   cartItemTotalValue$ = this.#store.select(selectCartItemsTotalValue);
+  showModal$ = this.#utilService.modalTrigger$;
 
   readonly currencySymbol = kCurrencySymbol;
 
@@ -160,6 +163,10 @@ export class AppComponent implements OnInit, OnDestroy {
     this.#snackBarMessage.set([]);
     this.#snackBarTimerSub?.unsubscribe();
     this.#errorSnackBar.set(false);
+  }
+
+  handleCheckout(): void {
+    this.#router.navigateByUrl('/cart');
   }
 
   ngOnDestroy(): void {

@@ -17,7 +17,10 @@ export const loadCourses$ = createEffect(
             const actualPrice = +v.actualPrice.replace(kCurrencySymbol, '');
             const discountPercentage = +v.discountPercentage.replace('%', '');
             const discountAmount = (discountPercentage / 100) * actualPrice;
-            const discountedPrice = Math.round(actualPrice - discountAmount);
+            const discountedPrice =
+              discountPercentage > 0
+                ? Math.round(actualPrice - discountAmount)
+                : 0;
 
             return {
               ...v,

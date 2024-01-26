@@ -1,3 +1,5 @@
+import { TemplateRef } from '@angular/core';
+
 export enum MenuLink {
   courses = '/',
   wishlist = '/wishlist',
@@ -42,6 +44,12 @@ export type SnackBarStateProps = {
   snackBarMessage: string[];
   errorSnackBar?: boolean;
   duration?: number;
+};
+
+export type ModalStateProps = {
+  modalTitle: string;
+  modalTemplateMessage?: TemplateRef<HTMLDivElement>;
+  modalMessage?: string[];
 };
 
 export enum Position {

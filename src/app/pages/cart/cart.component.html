@@ -1,1 +1,66 @@
-<p>cart works!</p>
+<section id="cart">
+  <app-banner [smallBanner]="true" bannerText="Cart"></app-banner>
+
+  @if ((totalCartedCourses$ | async) === 0) {
+  <div
+    class="max-w-4xl mx-auto p-2 my-12 text-center text-gray-600 text-sm lg:text-lg"
+  >
+    Always a great time to start learning! Check available courses
+    <a
+      class="font-semibold hover:text-green-500 duration-200"
+      [routerLink]="['/']"
+      (click)="$event.preventDefault()"
+      >here</a
+    >.
+  </div>
+  } @else {
+
+  <div class="grid grid-cols-1 md:grid-cols-3 mx-auto max-w-4xl">
+    <div
+      class="mx-auto p-2 flex flex-col justify-start items-start my-4 order-last md:order-1 md:col-span-2"
+    >
+      @for (course of (cartedCourses$ | async); track course.courseId; let count
+      = $count; let index = $index) {
+      <h5 *ngIf="index === 0" class="p-2 text-sm font-semibold text-gray-600">
+        {{ count }} Course{{ count > 1 ? "s" : "" }} in cart
+      </h5>
+      <hr class="h-[1px] w-full px-2 my-2 bg-gray-600" />
+      <app-course-card [course]="course" displayAt="cart"></app-course-card>
+      }
+    </div>
+
+    <div
+      class="w-full max-w-lg order-1 md:order-2 mx-auto p-4 md:p-2 my-4 flex flex-col"
+    >
+      <div class="text-gray-600 text-sm">Total:</div>
+      <div class="text-3xl font-bold">
+        {{ currencySymbol }}{{ totalCartItemValue$ | async | number }}
+      </div>
+      <div
+        class="line-through"
+        *ngIf="
+          ((totalCartItemNoDiscValue$ | async) ?? 0) >
+          ((totalCartItemValue$ | async) ?? 0)
+        "
+      >
+        {{ currencySymbol }}{{ totalCartItemNoDiscValue$ | async | number }}
+      </div>
+      <app-button (click)="handleCheckout()"
+        ><span buttonText class="text-sm">Checkout</span></app-button
+      >
+    </div>
+  </div>
+
+  }
+
+  <ng-template #modalMessage>
+    <div class="px-2 py-1 sm:px-4 sm:py-2 text-gray-600 leading-relaxed">
+      <h3 class="font-semibold">Courses purchased successfully:</h3>
+      <ul class="list-decimal px-3 py-1 sm:px-5 sm:py-2">
+        @for (course of (cartedCourses$ | async); track $index) {
+        <li class="text-sm">{{ course.courseName }}</li>
+        }
+      </ul>
+    </div>
+  </ng-template>
+</section>

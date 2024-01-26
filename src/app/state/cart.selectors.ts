@@ -22,6 +22,13 @@ export const selectCartItemsTotalValue = createSelector(
     )
 );
 
+// No discount value
+export const selectCartItemsActualValue = createSelector(
+  selectCartSelector,
+  (state) =>
+    state.cartItems.reduce((total, cartItem) => total + cartItem.actualPrice, 0)
+);
+
 // since selector props are deprecated, the selector needs to be rewritten as a "factory selector".
 export const selectIsCartItemExists = (courseId: string) =>
   createSelector(selectCartSelector, (state) =>

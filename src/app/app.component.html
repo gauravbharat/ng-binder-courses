@@ -4,6 +4,8 @@
 
     <ng-container #snackBarContainer> </ng-container>
 
+    <app-modal *ngIf="showModal$ | async"></app-modal>
+
     <div class="flex-1 w-full mb-4">
       <router-outlet></router-outlet>
     </div>
@@ -28,7 +30,7 @@
       <div class="font-bold md:text-xl">
         {{ currencySymbol }}{{ cartItemTotalValue$ | async }}
       </div>
-      <app-button
+      <app-button (click)="handleCheckout()"
         ><span
           class="text-xs md:text-sm font-semibold md:font-medium"
           buttonText

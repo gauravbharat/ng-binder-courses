@@ -1,16 +1,16 @@
-@if (iconButton) {
 <button
   type="button"
-  class="p-[6px] bg-green-200 hover:bg-green-300 duration-150 rounded-lg"
+  class="duration-150 rounded-lg"
+  [ngClass]="{
+    'text-red-400 hover:text-red-600': baseButton && risk,
+    'text-green-400 hover:text-green-600': baseButton && !risk,
+    'bg-red-200 hover:bg-red-300': !baseButton && risk,
+    'bg-green-200 hover:bg-green-300': !baseButton && !risk,
+    'p-2 w-full': !baseButton && !iconButton && !smallButton,
+    'p-[6px]': iconButton,
+    'py-1 px-2': smallButton
+  }"
 >
   <ng-content select="[buttonIcon]"></ng-content>
-</button>
-} @else {
-<button
-  type="button"
-  class="w-full p-2 bg-green-200 hover:bg-green-300 duration-150 rounded-lg"
->
   <ng-content select="[buttonText]"></ng-content>
 </button>
-
-}

@@ -1,21 +1,29 @@
 <div
   [ngClass]="{ 'h-full': !displayAtCartWidget() }"
-  class="w-fit p-2 mx-auto my-2 flex flex-col"
+  class="p-2 mx-auto my-2 flex {{
+    displayAtCart()
+      ? 'flex-col sm:flex-row justify-start gap-2 w-full'
+      : 'flex-col w-fit '
+  }}"
 >
-  <div class="w-full relative">
+  <!-- Image display -->
+  <div class="{{ displayAtCart() ? 'w-fit' : 'w-full' }} relative">
+    <!-- Image placeholder -->
     @if (!imageLoaded()) {
     <div
-      class=" {{
-        displayAtCartWidget() ? 'w-full h-[70px]' : 'w-[300px] h-[200px]'
+      class="flex justify-center items-center {{
+        displayAtCartWidget()
+          ? 'w-full h-[70px]'
+          : displayAtCart()
+          ? 'w-[70px] h-[70px]'
+          : 'w-[300px] h-[200px] py-4'
       }} opacity-50"
     >
       <img
         src="assets/images/logo.png"
         alt="logo"
         class="{{
-          displayAtCartWidget()
-            ? 'w-[50px] h-[50px]'
-            : 'w-[150px] h-[150px] py-4'
+          displayAtCartWidget() ? 'w-[50px] h-[50px]' : 'w-[150px] h-[150px] '
         }} object-contain mx-auto"
         [ngClass]="{ 'animate-pulse': !imageLoadError() }"
       />
@@ -26,8 +34,13 @@
       [hidden]="!imageLoaded()"
       [src]="course.courseImageUrl"
       alt="image"
-      class="rounded-t-lg"
-      [ngClass]="{ 'w-[70px] sm:w-auto h-auto': displayAtCartWidget() }"
+      class="{{
+        displayAtCart() ? 'sm:rounded-tl-lg sm:rounded-bl-lg' : 'rounded-t-lg'
+      }}"
+      [ngClass]="{
+        'w-[70px] sm:w-auto h-auto': displayAtCartWidget(),
+        'w-fit h-[70px] md:h-[111px] object-cover': displayAtCart()
+      }"
       (load)="imageLoaded.set(true)"
       onerror="imageLoadError.set(true)"
     />
@@ -40,8 +53,12 @@
     ></ng-container>
   </div>
 
+  <!-- Course details -->
   <div
-    [ngClass]="{ 'flex-1': !displayAtCartWidget() }"
+    [ngClass]="{
+      'flex-1': displayAtHome() || displayAtWishlist(),
+      'w-full': displayAtCart()
+    }"
     class="flex flex-col relative"
   >
     <h2
@@ -57,29 +74,25 @@
         displayAtCartWidget() ? 'text-[10px] overflow-clip' : 'text-[11px]'
       }}"
     >
-      {{ course.author }}
+      {{ displayAtCart() ? "By " : "" }}{{ course.author }}
     </h5>
-    <p
-      class="text-sm flex items-baseline {{
-        displayAtCartWidget() ? 'gap-x-1' : 'gap-x-2'
-      }}"
-    >
-      @if (course.discountedPrice > 0) {<span
-        class="font-bold"
-        [ngClass]="{ 'text-[11px] sm:text-[13px]': displayAtCartWidget() }"
-        >{{ currencySymbol }}{{ course.discountedPrice }}</span
-      >}<span
-        class="{{
-          displayAtCartWidget() ? 'text-[10px] sm:text-xs' : 'text-[13px]'
-        }}"
-        [ngClass]="{
-          'line-through ': course.discountedPrice > 0,
-          'font-bold ': course.discountedPrice === 0,
-        }"
-        >{{ currencySymbol }}{{ course.actualPrice }}</span
-      >
-    </p>
 
+    @if (displayAtCart()) {
+    <div class="w-full max-w-[260px] flex gap-x-2 flex-grow">
+      <app-button [baseButton]="true" [risk]="true" (click)="removeFromCart()"
+        ><span class="text-xs" buttonText>Remove</span></app-button
+      >
+
+      <app-button [baseButton]="true" (click)="moveToWishListFromCart()"
+        ><span class="text-xs" buttonText>Move to wishlist</span></app-button
+      >
+    </div>
+
+    } @else {
+    <ng-container [ngTemplateOutlet]="priceDisplayEl"></ng-container>
+    }
+
+    <!-- Wishlist add/remove buttons -->
     @if (displayAtHome() || displayAtWishlist()) {
 
     <p class="text-[10px] text-gray-500">{{ course.tags.join("・") }}</p>
@@ -114,6 +127,11 @@
     ></ng-container>
   </div>
 
+  @if (displayAtCart()) {
+  <ng-container [ngTemplateOutlet]="priceDisplayEl"></ng-container>
+  }
+
+  <!-- Add to cart and go to course details buttons -->
   @if (displayAtHome() || displayAtWishlist()) {
   <div
     class="flex gap-1 items-center text-xs md:text-sm font-semibold md:font-medium my-1"
@@ -130,6 +148,7 @@
   }
 </div>
 
+<!-- Template to display remove from cart button in side cart widget on home screen -->
 <ng-template #deleteItemTrashCan let-displayClasses="displayClasses">
   @if (displayAtCartWidget()) {
   <button
@@ -142,4 +161,29 @@
     <i class="text-red-300 hover:text-red-600 duration-150 fi fi-sr-trash"></i>
   </button>
   }
+</ng-template>
+
+<!-- display price -->
+<ng-template #priceDisplayEl>
+  <p
+    class="text-sm flex items-baseline {{
+      displayAtCartWidget() ? 'gap-x-1' : 'gap-x-2'
+    }}"
+    [ngClass]="{ 'md:flex-col': displayAtCart() }"
+  >
+    @if (course.discountedPrice > 0) {<span
+      class="font-bold"
+      [ngClass]="{ 'text-[11px] sm:text-[13px]': displayAtCartWidget() }"
+      >{{ currencySymbol }}{{ course.discountedPrice | number }}</span
+    >}<span
+      class="{{
+        displayAtCartWidget() ? 'text-[10px] sm:text-xs' : 'text-[13px]'
+      }}"
+      [ngClass]="{
+          'line-through ': course.discountedPrice > 0,
+          'font-bold ': course.discountedPrice === 0,
+        }"
+      >{{ currencySymbol }}{{ course.actualPrice | number }}</span
+    >
+  </p>
 </ng-template>

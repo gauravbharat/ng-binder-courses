@@ -124,6 +124,11 @@ export class CourseCardComponent implements OnInit, OnDestroy {
     }
   }
 
+  moveToWishListFromCart(): void {
+    this.removeFromCart();
+    this.#store.dispatch(UserActions.addToWishlist({ course: this.course }));
+  }
+
   removeFromWishlist(): void {
     this.#store.dispatch(
       UserActions.removeFromWishlist({ courseId: this.course.courseId })

@@ -1,0 +1,53 @@
+<div
+  *ngIf="modalProps$ | async as modalProps"
+  class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex"
+>
+  <div class="relative w-auto my-6 mx-auto max-w-6xl">
+    <!--content-->
+    <div
+      class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none"
+    >
+      <!--header-->
+      <div
+        class="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t"
+      >
+        <h3 class="text-2xl sm:text-3xl font-semibold text-gray-600">
+          {{ modalProps.modalTitle }}
+        </h3>
+      </div>
+      <!--body-->
+      <div class="relative p-6 flex-auto">
+        <ng-container
+          *ngIf="modalProps.modalTemplateMessage"
+          [ngTemplateOutlet]="modalProps.modalTemplateMessage"
+        ></ng-container>
+
+        <ng-container *ngIf="modalProps.modalMessage as modalMessage">
+          @for (text of modalMessage; track $index) {
+          <p class="my-2 text-gray-600 text-sm md:text-lg leading-relaxed">
+            {{ text }}
+          </p>
+          }
+        </ng-container>
+      </div>
+      <!--footer-->
+      <div
+        class="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b"
+      >
+        <!-- <button
+          class="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+          type="button"
+          (click)="('')"
+        >
+          Close
+        </button> -->
+        <app-button [smallButton]="true" (click)="close()"
+          ><span buttonText class="font-semibold text-gray-600"
+            >OK</span
+          ></app-button
+        >
+      </div>
+    </div>
+  </div>
+</div>
+<div class="opacity-25 fixed inset-0 z-40 bg-black"></div>
