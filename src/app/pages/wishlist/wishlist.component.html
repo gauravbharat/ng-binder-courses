@@ -1,1 +1,11 @@
-<p>wishlist works!</p>
+<section id="wishlist">
+  <app-banner [smallBanner]="true" bannerText="Wishlisted courses"></app-banner>
+
+  <div
+    class="max-w-4xl mx-auto p-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 my-4"
+  >
+    @for (course of (wishlistedCourses$ | async); track course.courseId) {
+    <app-course-card [course]="course" displayAt="wishlist"></app-course-card>
+    }
+  </div>
+</section>

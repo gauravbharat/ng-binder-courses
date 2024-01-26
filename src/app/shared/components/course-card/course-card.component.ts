@@ -4,6 +4,7 @@ import {
   OnDestroy,
   OnInit,
   WritableSignal,
+  computed,
   inject,
   signal,
 } from '@angular/core';
@@ -33,9 +34,27 @@ export class CourseCardComponent implements OnInit, OnDestroy {
 
   imageLoaded: WritableSignal<boolean> = signal(false);
   imageLoadError: WritableSignal<boolean> = signal(false);
-  displayAtCartWidget: WritableSignal<boolean> = signal(false);
+
   isCourseWishlisted: WritableSignal<boolean> = signal(false);
   isCourseCarted: WritableSignal<boolean> = signal(false);
+
+  #displayAt: WritableSignal<CourseCardDisplayParent> = signal('home');
+  displayAtCartWidget = computed(() => {
+    const currentDisplayAt = this.#displayAt();
+    return currentDisplayAt === 'cartWidget';
+  });
+  displayAtHome = computed(() => {
+    const currentDisplayAt = this.#displayAt();
+    return currentDisplayAt === 'home';
+  });
+  displayAtWishlist = computed(() => {
+    const currentDisplayAt = this.#displayAt();
+    return currentDisplayAt === 'wishlist';
+  });
+  displayAtCart = computed(() => {
+    const currentDisplayAt = this.#displayAt();
+    return currentDisplayAt === 'cart';
+  });
 
   readonly currencySymbol = kCurrencySymbol;
 
@@ -44,7 +63,7 @@ export class CourseCardComponent implements OnInit, OnDestroy {
   #subscriptions = new Subscription();
 
   ngOnInit(): void {
-    this.displayAtCartWidget.set(this.displayAt === 'cartWidget');
+    this.#displayAt.set(this.displayAt);
 
     this.#subscriptions.add(
       this.#store

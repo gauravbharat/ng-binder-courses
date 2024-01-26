@@ -3,10 +3,8 @@
 @tailwind utilities;
 
 @layer base {
-  button {
-    @apply outline-green-300;
-  }
-
+  button,
+  a,
   input {
     @apply outline-green-300;
   }
