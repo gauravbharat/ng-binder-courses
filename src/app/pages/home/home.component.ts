@@ -20,11 +20,17 @@ import { CommonModule } from '@angular/common';
 import { CourseCardComponent } from '../../shared/components/course-card/course-card.component';
 import { SearchComponent } from '../../shared/components/search/search.component';
 import { SortOrder } from '../../app.model';
+import { BannerComponent } from '../../shared/components/banner/banner.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, CourseCardComponent, SearchComponent],
+  imports: [
+    CommonModule,
+    CourseCardComponent,
+    SearchComponent,
+    BannerComponent,
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
