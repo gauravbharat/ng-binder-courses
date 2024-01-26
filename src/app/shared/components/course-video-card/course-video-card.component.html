@@ -19,14 +19,14 @@
     />
   </video>
 
-  <div class="flex-1 flex flex-col relative">
+  <div class="flex-1 flex flex-col relative my-2">
     <h2 class="block md:hidden font-semibold text-xl sm:text-2xl">
       {{ course.courseName }}
     </h2>
     <h5 class="block md:hidden text-gray-600 text-xs sm:text-sm">
       By {{ course.author }}
     </h5>
-    <p class="block md:hidden text-[10px] text-gray-500">
+    <p class="block md:hidden text-[10px] text-gray-500 mb-2">
       {{ course.tags.join("・") }}
     </p>
 
@@ -46,6 +46,24 @@
         >{{ course.discountPercentage }}% off</span
       >
     </p>
+
+    @if (!timerCompleted()) {
+    <div class="text-red-400 flex items-center justify-start gap-x-1 text-sm">
+      <i class="fi fi-rr-stopwatch"></i>
+      <span class="min-w-[27px] font-semibold"
+        >{{ remainingHours() | number : "2.0" }}h</span
+      >
+      <span class="min-w-[27px] font-semibold"
+        >{{ remainingMinutes() | number : "2.0" }}m</span
+      >
+      <span class="min-w-[27px] font-semibold"
+        >{{ remainingSeconds() | number : "2.0" }}s</span
+      >
+      <span>left at this price!</span>
+    </div>
+
+    }
+
     <!-- Wishlist add/remove buttons -->
 
     <button

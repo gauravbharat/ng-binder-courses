@@ -61,13 +61,13 @@ export class CourseCardComponent implements OnInit, OnDestroy {
 
   #store = inject(Store);
   #utilService = inject(UtilService);
-  #subscriptions = new Subscription();
+  protected subscriptions = new Subscription();
   #router = inject(Router);
 
   ngOnInit(): void {
     this.#displayAt.set(this.displayAt);
 
-    this.#subscriptions.add(
+    this.subscriptions.add(
       this.#store
         .select(selectIsCourseAlreadyWishlisted(this.course.courseId))
         .subscribe((isWishlisted) => {
@@ -75,7 +75,7 @@ export class CourseCardComponent implements OnInit, OnDestroy {
         })
     );
 
-    this.#subscriptions.add(
+    this.subscriptions.add(
       this.#store
         .select(selectIsCartItemExists(this.course.courseId))
         .subscribe((isCarted) => {
@@ -85,7 +85,7 @@ export class CourseCardComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.#subscriptions.unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 
   addToCart(): void {
