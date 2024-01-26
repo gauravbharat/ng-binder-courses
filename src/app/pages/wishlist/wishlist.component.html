@@ -2,7 +2,9 @@
   <app-banner [smallBanner]="true" bannerText="Wishlisted courses"></app-banner>
 
   @if ((totalWishlistedCourses$ | async) === 0) {
-  <div class="max-w-4xl mx-auto p-2 my-12 text-center text-gray-600">
+  <div
+    class="max-w-4xl mx-auto p-2 my-12 text-center text-gray-600 text-sm lg:text-lg"
+  >
     Always a great time to explore learning! Check available courses
     <a
       class="font-semibold hover:text-green-500 duration-200"
