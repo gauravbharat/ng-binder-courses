@@ -78,8 +78,9 @@
 
     <p class="text-[10px] text-gray-500">{{ course.tags.join("・") }}</p>
 
-    <div
-      class="absolute right-6 top-2/4 cursor-pointer h-fit w-fit duration-150"
+    <button
+      type="button"
+      class="absolute right-6 top-2/4 h-fit w-fit duration-150"
       [ngClass]="{
         'hover:scale-125': !isCourseWishlisted(),
         'scale-110 hover:animate-pulse': isCourseWishlisted()
@@ -91,7 +92,7 @@
           isCourseWishlisted() ? 'fi fi-sr-heart' : 'fi fi-rr-heart'
         }}"
       ></i>
-    </div>
+    </button>
     }
 
     <ng-container
@@ -118,13 +119,14 @@
 
 <ng-template #deleteItemTrashCan let-displayClasses="displayClasses">
   @if (displayAtCartWidget()) {
-  <div
+  <button
+    type="button"
     class="{{
       displayClasses
     }} absolute cursor-pointer h-fit w-fit drop-shadow-lg"
     (click)="removeFromCart()"
   >
     <i class="text-red-300 hover:text-red-600 duration-150 fi fi-sr-trash"></i>
-  </div>
+  </button>
   }
 </ng-template>

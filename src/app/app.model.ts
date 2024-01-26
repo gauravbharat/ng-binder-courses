@@ -77,3 +77,5 @@ export interface ApiError {
   url: string;
   error: { message: string }; //or can be any other struct based on backend config
 }
+
+export type SortOrder = 'asc' | 'desc' | 'none';

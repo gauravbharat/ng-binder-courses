@@ -4,16 +4,88 @@
       Discover Latest Courses on Angular
     </h1>
   </div>
-  <div class="max-w-4xl mx-auto p-2 grid grid-cols-1 md:grid-cols-2 my-4">
-    @for (course of (formattedCourses$ | async); track course.courseId) {
-    <app-course-card [course]="course"></app-course-card>
+
+  <app-search
+    class="contents"
+    (searchEvent)="setSearchText($event)"
+  ></app-search>
+
+  <ng-container [ngTemplateOutlet]="paginationEl"></ng-container>
+
+  <!-- {{ searchState() | json }} {{ maxPageLength() }} -->
+
+  <ng-container *ngIf="displayCourses$ | async as coursesToDisplay">
+    <div class="max-w-4xl mx-auto p-2 grid grid-cols-1 md:grid-cols-2 my-4">
+      @for (course of coursesToDisplay; track course.courseId) {
+      <app-course-card [course]="course"></app-course-card>
+      }
+    </div>
+
+    @if (coursesToDisplay.length > 4) {
+    <ng-container [ngTemplateOutlet]="paginationEl"></ng-container>
     }
-  </div>
+  </ng-container>
 </section>
 
-<!-- <i class="fi fi-rr-sort-amount-down-alt"></i>
-<i class="fi fi-rr-sort-amount-up-alt"></i>
-<i class="fi fi-rr-search"></i>
+<ng-template #paginationEl>
+  <div class="flex w-full justify-between items-center px-4 py-2">
+    <div class="flex items-center gap-2">
+      <span>Price</span>
+      <button
+        type="button"
+        class="drop-shadow-lg"
+        [ngClass]="{ 'text-green-700': searchState().sortOrder === 'desc' }"
+        (click)="setSortOrder('desc')"
+      >
+        <i class="fi fi-rr-sort-amount-down-alt"></i>
+      </button>
+      <button
+        type="button"
+        class="drop-shadow-lg"
+        [ngClass]="{ 'text-green-700': searchState().sortOrder === 'asc' }"
+        (click)="setSortOrder('asc')"
+      >
+        <i class="fi fi-rr-sort-amount-up-alt"></i>
+      </button>
+    </div>
 
-<i class="fi fi-rr-angle-right"></i>
-<i class="fi fi-rr-angle-left"></i> -->
+    <div class="flex items-center gap-3">
+      <input
+        class="max-w-[50px] border-[1px] rounded-lg border-green-700 px-1 drop-shadow-md text-sm"
+        type="number"
+        placeholder="enter page size"
+        [min]="4"
+        [max]="100"
+        [value]="searchState().pageSize"
+        (change)="setPageSize(+inputPageS.value, inputPageS)"
+        #inputPageS
+      />
+      <button
+        type="button"
+        class="drop-shadow-lg {{
+          pagePreviousButtonEnabled() ? 'text-green-700' : 'text-gray-300'
+        }}"
+        (click)="
+          pagePreviousButtonEnabled()
+            ? setPageIndex(searchState().pageIndex - 1)
+            : ''
+        "
+      >
+        <i class="fi fi-rr-angle-left"></i>
+      </button>
+      <button
+        type="button"
+        class="drop-shadow-lg {{
+          pageNextButtonEnabled() ? 'text-green-700' : 'text-gray-300'
+        }}"
+        (click)="
+          pageNextButtonEnabled()
+            ? setPageIndex(searchState().pageIndex + 1)
+            : ''
+        "
+      >
+        <i class="fi fi-rr-angle-right"></i>
+      </button>
+    </div>
+  </div>
+</ng-template>
