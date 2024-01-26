@@ -8,6 +8,11 @@ export const selectTotalWishlistedCourses = createSelector(
   (state) => state.wishlistedItems.length
 );
 
+export const selectWishlistedCourses = createSelector(
+  selectUserSelector,
+  (state) => state.wishlistedItems
+);
+
 export const selectIsCourseAlreadyWishlisted = (courseId: string) =>
   createSelector(
     selectUserSelector,

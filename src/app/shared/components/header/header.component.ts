@@ -8,6 +8,7 @@ import {
   selectIsUserLoading,
   selectIsUserLoggedIn,
 } from '../../../state/user.selectors';
+import { selectTotalCartItems } from '../../../state/cart.selectors';
 
 @Component({
   selector: 'app-header',
@@ -52,6 +53,7 @@ export class HeaderComponent {
 
   isUserLoggedIn$ = this.#store.select(selectIsUserLoggedIn);
   isUserLoading$ = this.#store.select(selectIsUserLoading);
+  totalCartItems$ = this.#store.select(selectTotalCartItems);
 
   onLogin(): void {
     this.#store.dispatch(

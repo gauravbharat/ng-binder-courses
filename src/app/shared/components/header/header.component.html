@@ -23,7 +23,7 @@
           (menuItem.routerLink === menuLink.profile &&
             (isUserLoggedIn$ | async))
         "
-        class="cursor-pointer hover:text-primaryGreen duration-150"
+        class="relative cursor-pointer hover:text-primaryGreen duration-150"
         [routerLink]="[menuItem.routerLink]"
         routerLinkActive="binder-link-active text-primaryGreen"
         [routerLinkActiveOptions]="routerLinkActiveOptions"
@@ -35,6 +35,13 @@
         }}</span></a
       >
       }
+
+      <div
+        *ngIf="totalCartItems$ | async as totalCartItems"
+        class="absolute -top-1 right-8 sm:right-14 lg:right-16 xl:right-[72px] text-sm text-green-600"
+      >
+        {{ totalCartItems }}
+      </div>
 
       <ng-container *ngIf="!(isUserLoggedIn$ | async)">
         @if (isUserLoading$ | async) {
