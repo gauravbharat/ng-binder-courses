@@ -45,9 +45,9 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
           debounceTime(700),
           distinctUntilChanged()
         ),
-        isEnterKey: fromEvent(this._searchField.nativeElement, 'keyup').pipe(
-          map((e) => (e as KeyboardEvent).key === 'Enter')
-        ),
+        // isEnterKey: fromEvent(this._searchField.nativeElement, 'keyup').pipe(
+        //   map((e) => (e as KeyboardEvent).key === 'Enter')
+        // ),
       }).subscribe(({ input }) => {
         // console.log('search text', input, 'keyup', isEnterKey);
         this.#userTypedText.set(input || '');
