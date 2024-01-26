@@ -35,6 +35,7 @@ export class CourseCardComponent implements OnInit, OnDestroy {
   imageLoadError: WritableSignal<boolean> = signal(false);
   displayAtCartWidget: WritableSignal<boolean> = signal(false);
   isCourseWishlisted: WritableSignal<boolean> = signal(false);
+  isCourseCarted: WritableSignal<boolean> = signal(false);
 
   readonly currencySymbol = kCurrencySymbol;
 
@@ -52,6 +53,14 @@ export class CourseCardComponent implements OnInit, OnDestroy {
           this.isCourseWishlisted.set(isWishlisted);
         })
     );
+
+    this.#subscriptions.add(
+      this.#store
+        .select(selectIsCartItemExists(this.course.courseId))
+        .subscribe((isCarted) => {
+          this.isCourseCarted.set(isCarted > -1);
+        })
+    );
   }
 
   ngOnDestroy(): void {
@@ -59,31 +68,22 @@ export class CourseCardComponent implements OnInit, OnDestroy {
   }
 
   addToCart(): void {
-    this.#store
-      .select(selectIsCartItemExists(this.course.courseId))
-      .pipe(take(1))
-      .subscribe((isCartItemExists) => {
-        // console.log('isCartItemExists', isCartItemExists > -1);
-
-        if (isCartItemExists === -1) {
-          this.#store.dispatch(
-            CartActions.addCartItem({ course: this.course })
-          );
-
-          this.removeFromWishlist();
-
-          this.#utilService.showSnackbar({
-            snackBarMessage: [`Course successfully added in the cart`],
-          });
-        } else {
-          this.#utilService.showSnackbar({
-            snackBarMessage: [
-              `${this.course.courseName} already exists in the cart`,
-            ],
-            errorSnackBar: true,
-          });
-        }
+    if (this.isCourseCarted()) {
+      this.#utilService.showSnackbar({
+        snackBarMessage: [
+          `${this.course.courseName} already exists in the cart`,
+        ],
+        errorSnackBar: true,
       });
+    } else {
+      this.#store.dispatch(CartActions.addCartItem({ course: this.course }));
+
+      this.removeFromWishlist();
+
+      this.#utilService.showSnackbar({
+        snackBarMessage: [`Course successfully added in the cart`],
+      });
+    }
   }
 
   removeFromCart(): void {
@@ -93,7 +93,16 @@ export class CourseCardComponent implements OnInit, OnDestroy {
   }
 
   addToWishlist(): void {
-    this.#store.dispatch(UserActions.addToWishlist({ course: this.course }));
+    if (this.isCourseCarted()) {
+      this.#utilService.showSnackbar({
+        snackBarMessage: [
+          `${this.course.courseName} already exists in the cart`,
+        ],
+        errorSnackBar: true,
+      });
+    } else {
+      this.#store.dispatch(UserActions.addToWishlist({ course: this.course }));
+    }
   }
 
   removeFromWishlist(): void {
