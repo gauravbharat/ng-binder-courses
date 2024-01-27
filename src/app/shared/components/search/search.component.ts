@@ -37,10 +37,13 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     if (!this.#searchSub && this._searchField) {
       this.#searchSub = combineLatest({
-        input: fromEvent(this._searchField.nativeElement, 'input').pipe(
-          map((event: any) => {
+        input: fromEvent<KeyboardEvent>(
+          this._searchField.nativeElement,
+          'input'
+        ).pipe(
+          map((event: KeyboardEvent) => {
             // console.log('search event', event);
-            return event.target.value;
+            return (event.target as HTMLInputElement).value;
           }),
           debounceTime(700),
           distinctUntilChanged()

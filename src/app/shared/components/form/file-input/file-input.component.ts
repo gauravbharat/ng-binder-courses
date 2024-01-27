@@ -37,15 +37,17 @@ export class FileInputComponent {
     });
   }
 
-  readUrl(event: any) {
-    if (event.target.files && event.target.files[0]) {
+  readUrl(event: Event) {
+    const target = event.target as HTMLInputElement;
+
+    if (target.files && target.files[0]) {
       const reader = new FileReader();
 
       reader.onload = (event: ProgressEvent) => {
         this.#imageUrl.set((<FileReader>event.target).result);
       };
 
-      reader.readAsDataURL(event.target.files[0]);
+      reader.readAsDataURL(target.files[0]);
     }
   }
 }
