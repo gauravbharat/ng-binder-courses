@@ -13,13 +13,9 @@ import { Course, MenuLink, RoutePathParams } from './app.model';
 import { inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { selectIsUserLoggedIn } from './state/user.selectors';
-import { Observable, map, of, tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { CourseDetailsComponent } from './pages/course-details/course-details.component';
 import { UtilService } from './shared/services/util.service';
-import {
-  selectCourseById,
-  selectFormattedCourses,
-} from './state/course.selectors';
 import { CourseService } from './shared/services/course.service';
 
 const menuPaths = Object.keys(MenuLink);

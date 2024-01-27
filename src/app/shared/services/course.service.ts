@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Observable, delay, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Course, kCurrencySymbol } from '../../app.model';
 
 import data from '../../data/data.json';

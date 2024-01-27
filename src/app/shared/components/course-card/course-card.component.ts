@@ -12,7 +12,7 @@ import { Course, MenuLink, kCurrencySymbol } from '../../../app.model';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { selectIsCartItemExists } from '../../../state/cart.selectors';
-import { Subscription, take } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { CartActions } from '../../../state/cart.actions';
 import { ButtonComponent } from '../button/button.component';
 import { UtilService } from '../../services/util.service';

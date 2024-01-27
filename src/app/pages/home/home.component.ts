@@ -11,10 +11,9 @@ import {
 import { Store } from '@ngrx/store';
 import {
   selectDisplayCourses,
-  selectFormattedCourses,
   selectMaxPageLength,
 } from '../../state/course.selectors';
-import { Subscription, take } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { CourseActions } from '../../state/course.actions';
 import { CommonModule } from '@angular/common';
 import { CourseCardComponent } from '../../shared/components/course-card/course-card.component';

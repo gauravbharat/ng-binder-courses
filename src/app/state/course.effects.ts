@@ -1,9 +1,9 @@
 import { inject } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { CourseActions } from './course.actions';
-import { delay, exhaustMap, map, of, withLatestFrom } from 'rxjs';
+import { exhaustMap, map, of, withLatestFrom } from 'rxjs';
 
-import { Course, kCurrencySymbol } from '../app.model';
+import { Course } from '../app.model';
 import { Store } from '@ngrx/store';
 import { selectFormattedCourses } from './course.selectors';
 import { CourseService } from '../shared/services/course.service';

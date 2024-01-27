@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -40,7 +39,7 @@ export class FileInputComponent {
 
   readUrl(event: any) {
     if (event.target.files && event.target.files[0]) {
-      var reader = new FileReader();
+      const reader = new FileReader();
 
       reader.onload = (event: ProgressEvent) => {
         this.#imageUrl.set((<FileReader>event.target).result);
