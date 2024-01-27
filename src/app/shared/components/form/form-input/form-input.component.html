@@ -1,0 +1,45 @@
+<ng-container *ngIf="parentForm && controlName" [formGroup]="parentForm">
+  <div class="my-2">
+    <label
+      *ngIf="displayName"
+      class="text-gray-600 text-xs"
+      [for]="controlName"
+      >{{ displayName }}</label
+    >
+
+    @if (largerInput) {
+    <textarea
+      type="text"
+      [id]="controlName"
+      [formControlName]="controlName"
+      [rows]="rows"
+      class="border border-green-400 rounded-lg w-full p-1 text-sm"
+    ></textarea>
+
+    } @else {
+    <input
+      [type]="type"
+      [id]="controlName"
+      [formControlName]="controlName"
+      class="border {{parentForm.get(controlName)?.errors?.[errorCondition] ? 'border-red-400 outline-red-500' : 'border-green-400'}} rounded-lg w-full p-1 text-sm"
+    />
+    }
+
+    <div
+      *ngIf="displayName && parentForm.get(controlName)?.errors?.[errorCondition]"
+      class="text-[11px] text-red-500 mt-[2px]"
+    >
+      @switch (errorCondition) { @case('required') {
+      {{ displayName }} is required } @case ('maxlength') { Characters
+      {{parentForm.get(controlName)?.errors?.[errorCondition]?.['actualLength']
+
+      }}, max
+      {{parentForm.get(controlName)?.errors?.[errorCondition]?.['requiredLength']}}
+      characters are allowed } @default { TODO: handle unknown validation
+      message } }
+    </div>
+  </div>
+</ng-container>
+
+<!--  && parentForm.get(controlName)?.touched
+ && parentForm.get(controlName)?.touched -->

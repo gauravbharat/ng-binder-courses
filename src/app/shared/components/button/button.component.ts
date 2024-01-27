@@ -13,4 +13,5 @@ export class ButtonComponent {
   @Input() risk = false;
   @Input() baseButton = false;
   @Input() smallButton = false;
+  @Input() disabled = false;
 }

@@ -59,3 +59,23 @@ export const loginFailed$ = createEffect(
   },
   { functional: true, dispatch: false }
 );
+
+export const updateUser$ = createEffect(
+  (action$ = inject(Actions), utilService = inject(UtilService)) => {
+    return action$.pipe(
+      ofType(UserActions.updateUserStart),
+      exhaustMap((actions) =>
+        of(actions.userData).pipe(
+          map((userData) => {
+            utilService.showSnackbar({
+              snackBarMessage: ['Your profile is updated.'],
+            });
+
+            return UserActions.updateUserSuccess({ userData });
+          })
+        )
+      )
+    );
+  },
+  { functional: true }
+);

@@ -2,14 +2,16 @@
   type="button"
   class="duration-150 rounded-lg"
   [ngClass]="{
-    'text-red-400 hover:text-red-600': baseButton && risk,
-    'text-green-400 hover:text-green-600': baseButton && !risk,
-    'bg-red-200 hover:bg-red-300': !baseButton && risk,
-    'bg-green-200 hover:bg-green-300': !baseButton && !risk,
+    'text-red-400 hover:text-red-600': baseButton && risk && !disabled,
+    'text-green-400 hover:text-green-600': baseButton && !risk && !disabled,
+    'bg-red-200 hover:bg-red-300': !baseButton && risk && !disabled,
+    'bg-green-200 hover:bg-green-300': !baseButton && !risk && !disabled,
     'p-2 w-full': !baseButton && !iconButton && !smallButton,
     'p-[6px]': iconButton,
-    'py-1 px-2': smallButton
+    'py-1 px-2': smallButton,
+    'text-gray-400 bg-gray-200': disabled
   }"
+  [disabled]="disabled"
 >
   <ng-content select="[buttonIcon]"></ng-content>
   <ng-content select="[buttonText]"></ng-content>

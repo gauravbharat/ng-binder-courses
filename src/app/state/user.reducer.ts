@@ -76,6 +76,23 @@ export const userReducer = createReducer(
     })
   ),
   on(
+    UserActions.updateUserStart,
+    (state): UserState => ({
+      ...state,
+      isLoading: true,
+    })
+  ),
+  on(UserActions.updateUserSuccess, (state, { userData }): UserState => {
+    const newData = JSON.parse(JSON.stringify(userData));
+    const image = userData.image;
+
+    return {
+      ...state,
+      user: { ...state.user, ...newData, image },
+      isLoading: false,
+    };
+  }),
+  on(
     UserActions.logoutUser,
     (state): UserState => ({
       ...state,

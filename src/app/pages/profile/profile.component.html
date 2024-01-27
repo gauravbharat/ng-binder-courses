@@ -1,1 +1,187 @@
-<p>profile works!</p>
+<section id="profile">
+  <app-banner [smallBanner]="true" bannerText="Edit profile"></app-banner>
+
+  <div
+    class="flex flex-col md:flex-row justify-center items-center md:justify-start md:items-start mx-auto gap-y-2 md:gap-y-0 md:gap-x-16 max-w-4xl my-2 md:my-4"
+    *ngIf="userForm"
+    [formGroup]="userForm"
+  >
+    <div class="flex flex-col justify-center items-center gap-2">
+      <div class="relative group rounded-full shadow-md cursor-pointer">
+        <img
+          class="w-48 h-48 md:w-64 md:h-64 rounded-full group-hover:opacity-40 duration-150 object-cover"
+          [src]="
+            userForm.get('image')?.value || 'assets/images/user-blank.jpeg'
+          "
+          [alt]="userForm.get('firstName')?.value"
+          onerror="this.src = 'assets/images/user-blank.jpeg'"
+        />
+
+        <div
+          *ngIf="userForm.get('image')?.value"
+          class="absolute bottom-[5%] left-[45%] hidden group-hover:flex gap-x-2 text-lg md:text-2xl"
+          (click)="removeImage()"
+        >
+          <!-- <i
+            class="text-green-500 hover:text-green-700 duration-150 fi fi-rr-edit"
+          ></i> -->
+          <i
+            class="text-red-500 hover:text-red-700 duration-150 fi fi-sr-trash"
+          ></i>
+        </div>
+      </div>
+      <div *ngIf="userForm.get('image')?.value" class="flex gap-x-2">
+        <!-- <app-button [baseButton]="true"
+          ><span buttonText>Edit</span></app-button
+        > -->
+        <app-button [baseButton]="true" [risk]="true" (click)="removeImage()"
+          ><span buttonText>Remove</span></app-button
+        >
+      </div>
+    </div>
+
+    <div class="w-[90%] md:w-1/2 h-full flex flex-col">
+      <app-form-input
+        [parentForm]="userForm"
+        controlName="displayName"
+        displayName="Display name"
+      ></app-form-input>
+
+      <!-- <div class="my-1">
+        <label class="text-gray-600 text-xs" for="displayName"
+          >Display name</label
+        >
+        <input
+          type="text"
+          id="displayName"
+          formControlName="displayName"
+          class="border {{userForm.controls.displayName.errors?.['required']  && userForm.controls.displayName.touched ? 'border-red-400 outline-red-500' : 'border-green-400'}} rounded-lg w-full p-1 text-sm"
+        />
+        <div
+          *ngIf="userForm.controls.displayName.errors?.['required'] && userForm.controls.displayName.touched"
+          class="text-[11px] text-red-500 mt-1"
+        >
+          Display name is required
+        </div>
+      </div> -->
+
+      <app-form-input
+        [parentForm]="userForm"
+        controlName="firstName"
+        displayName="First name"
+      ></app-form-input>
+
+      <app-form-input
+        [parentForm]="userForm"
+        controlName="lastName"
+        displayName="Last name"
+      ></app-form-input>
+
+      <app-file-input
+        controlName="image"
+        (imageChanged)="setImageUrl($event)"
+      ></app-file-input>
+
+      <app-form-input
+        [parentForm]="userForm"
+        controlName="about"
+        displayName="About yourself"
+        [largerInput]="true"
+        errorCondition="maxlength"
+      ></app-form-input>
+
+      <div class="my-2">
+        <p class="text-gray-600 text-sm mb-1">Your areas of interest:</p>
+        <div class="grid grid-cols-2 gap-1 text-gray-600">
+          @for (interest of areasOfInterestOptions; track $index) {
+
+          <label class="text-xs">
+            <input
+              type="checkbox"
+              class="accent-green-200"
+              [checked]="interestPresent(interest)"
+              (change)="
+                setAreaOfInterest(interest, $any($event.target).checked)
+              "
+            />
+            {{ interest }}
+          </label>
+          }
+        </div>
+      </div>
+
+      <div class="my-2">
+        <p class="text-gray-600 text-sm mb-1">
+          Are you a student or a professional?
+        </p>
+        <div class="flex gap-2">
+          @for (radio of positionOptions; track $index) {
+          <label class="text-xs">
+            <input
+              type="radio"
+              class="accent-green-200"
+              formControlName="position"
+              value="{{ radio.value }}"
+              (change)="onChangePosition()"
+            />
+            {{ radio.displayName }}
+          </label>
+          }
+        </div>
+      </div>
+
+      @if (userForm.get("position")?.value === position.professional) {
+      <div class="my-2">
+        <p class="text-gray-600 text-sm mb-1">Experience:</p>
+
+        <div class="flex flex-col gap-2">
+          @for (radio of experienceOptions; track $index) {
+          <label class="text-xs">
+            <input
+              type="radio"
+              class="accent-green-200"
+              formControlName="experience"
+              value="{{ radio.value }}"
+            />
+            {{ radio.displayName }}
+          </label>
+          }
+        </div>
+      </div>
+
+      <div class="my-2">
+        <p class="text-gray-600 text-sm mb-1">Expertise:</p>
+
+        <div class="flex flex-col gap-2">
+          @for (radio of expertiseOptions; track $index) {
+          <label class="text-xs">
+            <input
+              type="radio"
+              class="accent-green-200"
+              formControlName="expertise"
+              value="{{ radio.value }}"
+            />
+            {{ radio.displayName }}
+          </label>
+          }
+        </div>
+      </div>
+      }
+
+      <app-form-input
+        [parentForm]="userForm"
+        controlName="role"
+        displayName="Mention your role"
+        [largerInput]="true"
+        [rows]="5"
+        errorCondition="maxlength"
+      ></app-form-input>
+
+      <app-button
+        [disabled]="!userForm.valid"
+        (click)="userForm.valid ? onSave() : ''"
+        ><span buttonText>Save</span></app-button
+      >
+    </div>
+  </div>
+</section>

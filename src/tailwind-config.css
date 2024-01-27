@@ -5,7 +5,8 @@
 @layer base {
   button,
   a,
-  input {
+  input,
+  textarea {
     @apply outline-green-300;
   }
 }

@@ -28,6 +28,10 @@ export const getMenuLinkName = (menuLink = MenuLink.courses) => {
   }
 };
 
+export enum MimeTypes {
+  IMAGE_JPEG = 'image/jpeg',
+}
+
 export interface Course {
   courseId: string;
   actualPrice: number;
@@ -68,21 +72,31 @@ export enum WorkExperience {
   TenAndAbove = '10 & above',
 }
 
-export interface User {
+export enum Expertise {
+  BACKEND = 'backend',
+  FRONTEND = 'frontend',
+  FULLSTACK = 'fullstack',
+}
+
+export interface UserUpdateData {
   email: string;
   displayName: string;
   firstName: string;
-  gender: string;
-  id: number;
-  image: string;
-  lastName: string;
-  token: string;
+  gender: string | undefined;
+  image: string | ArrayBuffer | null | undefined;
+  lastName: string | undefined;
   username: string;
-  about: string;
+  about: string | undefined;
   areasOfInterest: string[];
-  position: Position;
+  position: Position | undefined;
   experience: WorkExperience | undefined;
-  role: string;
+  expertise: Expertise | undefined;
+  role: string | undefined;
+}
+
+export interface User extends UserUpdateData {
+  id: number | undefined;
+  token: string;
 }
 
 export interface ApiError {

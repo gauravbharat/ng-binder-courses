@@ -1,5 +1,5 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
-import { ApiError, Course, User } from '../app.model';
+import { ApiError, Course, User, UserUpdateData } from '../app.model';
 
 export const UserActions = createActionGroup({
   source: 'Users',
@@ -11,5 +11,10 @@ export const UserActions = createActionGroup({
     'Login success': props<{ user: User }>(),
     'Login failed': props<{ errorDetails: ApiError }>(),
     'Logout user': emptyProps(),
+    'Update user start': props<{
+      userId: number | undefined;
+      userData: UserUpdateData;
+    }>(), //user success/failed actions can be added when workgin with APIs
+    'Update user success': props<{ userData: UserUpdateData }>(),
   },
 });
